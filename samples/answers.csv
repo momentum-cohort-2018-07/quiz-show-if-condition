@@ -1,0 +1,25 @@
+id,question_id,text,correct
+1,1,find,false
+2,1,findAll,false
+3,1,filter,true
+4,1,reduce,false
+5,2,-1,true
+6,2,false,false
+7,2,null,false
+8,3,create a new array of shorter length than the original,false
+9,3,create a new array of the same length as the original,true
+10,3,return a single value,false
+11,3,transform the original array,false
+12,4,`has_and_belongs_to_many :posts` in `Comment`,false
+13,4,"`belongs_to :post, through: :post_id` in `Comment`",false
+14,4,"`has_many :comments` in `Post`",true
+15,4,`belongs_to :comment` in `Post`",false
+16,5,numericality,true
+17,5,reliability,false
+18,5,email,false
+19,5,text,false
+20,5,size,false
+21,6,PostgreSQL,false
+22,6,SQLite,false
+23,6,MySQL,false
+24,6,MongoDB,true

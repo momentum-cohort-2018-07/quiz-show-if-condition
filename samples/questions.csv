@@ -1,0 +1,7 @@
+id,quiz_id,text
+1,1,What method do you use to get all records that match a condition?
+2,1,What does `findIndex` return if no records match its condition?
+3,1,Which of the following does the method `map` do?
+4,2,"Given a table `posts` and another table `comments` with the field `post_id`, which of the following associations would you use to connect the tables?"
+5,2,Which of the following is a built-in Rails validation?
+6,2,Which of the following is **not** a database you can use with ActiveRecord?

@@ -13,7 +13,7 @@ id,question_id,text,correct
 12,4,`has_and_belongs_to_many :posts` in `Comment`,false
 13,4,"`belongs_to :post, through: :post_id` in `Comment`",false
 14,4,"`has_many :comments` in `Post`",true
-15,4,`belongs_to :comment` in `Post`",false
+15,4,`belongs_to :comment` in `Post`,false
 16,5,numericality,true
 17,5,reliability,false
 18,5,email,false

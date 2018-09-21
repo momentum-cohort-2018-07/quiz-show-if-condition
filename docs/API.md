@@ -71,7 +71,7 @@ The response will be:
 
 ### Delete a specific user :lock: :smiley:
 
-`DELETE /users/:id`\
+`DELETE /users/:id`
 
 ### Get the current user profile :lock:
 

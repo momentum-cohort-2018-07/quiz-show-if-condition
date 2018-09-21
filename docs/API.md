@@ -57,7 +57,7 @@ The response will be:
 }
 ```
 
-### Get a specific user <span style="color:orange">**[AUTH REQUIRED]**</span>
+### Get a specific user :lock:
 
 `GET /users/:id`
 
@@ -70,11 +70,11 @@ The response will be:
 }
 ```
 
-### Delete a specific user <span style="color:orange">**[AUTH REQUIRED]**</span> <span style="color:red">**[OWNER ONLY]**</span>
+### Delete a specific user :lock: :smiley:
 
-`DELETE /users/:id` 
+`DELETE /users/:id`\
 
-### Get the current user profile <span style="color:orange">**[AUTH REQUIRED]**</span>
+### Get the current user profile :lock:
 
 `GET /profile`
 
@@ -86,7 +86,7 @@ The response will be:
 }
 ```
 
-### Get the current user admin profile <span style="color:orange">**[AUTH REQUIRED]**</span> <span style="color:yellow">**[ADMIN ONLY]**</span>
+### Get the current user admin profile :lock: :a:
 
 `GET /admin_profile`
 
@@ -111,19 +111,19 @@ The response will be:
   "data": {
     "quizzes": [
       {
-        id: 1,
-        title: "JavaScript arrays"
+        "id": 1,
+        "title": "JavaScript arrays"
       },
       {
-        id: 2,
-        title: "Rails models"
+        "id": 2,
+        "title": "Rails models"
       }
     ]
   }
 }
 ```
 
-### Get a specific quizzes <span style="color:orange">**[AUTH REQUIRED]**</span> <span style="color:yellow">**[ADMIN ONLY]**</span>
+### Get a specific quizzes :lock: :a:
 
 `GET /quizzes`
 

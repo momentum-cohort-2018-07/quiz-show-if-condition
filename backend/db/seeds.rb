@@ -10,7 +10,6 @@ require 'csv'
 
 user = User.new
 user.username = 'admin'
-user.email = 'admin@condition.com'
 user.password = 'admin'
 user.admin = true
 user.save
@@ -18,19 +17,18 @@ user.save
 
 user = User.new
 user.username = 'user'
-user.email = 'user@other.com'
 user.password = 'user'
 user.save
 
 
-CSV.foreach('sample/quizzes.csv', headers: true) do |row|
+CSV.foreach('../samples/quizzes.csv', headers: true) do |row|
   Quiz.create(row.to_h)
 end
 
-CSV.foreach('sample/questions.csv', headers: true) do |row|
+CSV.foreach('../samples/questions.csv', headers: true) do |row|
   Question.create(row.to_h)
 end
 
-CSV.foreach('sample/answers.csv', headers: true) do |row|
+CSV.foreach('../samples/answers.csv', headers: true) do |row|
   Answer.create(row.to_h)
 end

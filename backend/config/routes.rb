@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :scores, only: [:index, :create]
     end
     resources :quizzes do
+      post 'publish', to: 'quizzes#publish'
       resources :questions, only: [:create, :update, :show, :destroy] do
         resources :answers, only: [:create, :update, :show, :destroy]
         resources :responses, only: :create

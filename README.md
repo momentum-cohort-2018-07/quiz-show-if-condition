@@ -1,4 +1,4 @@
-# Rails Quiz Show
+# Quiz Show
 
 In this project, you will design and build a quiz application with a Rails API backend and a React front end. With this application, administrators can build multiple-choice quizzes. Users can take these quizzes and be scored against each other.
 

@@ -124,23 +124,16 @@ The response will be:
 
 ### Get a specific quizzes :lock: :a:
 
-`GET /quizzes`
+`GET /quizzes/:id`
 
 The response will be:
 
 ```json
 {
   "data": {
-    "quizzes": [
-      {
         "id": 1,
-        "title": "JavaScript arrays"
-      },
-      {
-        "id": 2,
-        "title": "Rails models"
-      }
-    ]
-  }
+        "title": "JavaScript arrays",
+        "published": true
+        }
 }
 ```

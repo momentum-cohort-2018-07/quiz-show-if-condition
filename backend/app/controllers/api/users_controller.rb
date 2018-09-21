@@ -34,7 +34,7 @@ class API::UsersController < ApplicationController
       render json: {error: "You can't update this user"}, status: :unauthorized
     else
       if @user.update(user_params)
-        render :show, status: :updated, location: api_rooster_url(@user)
+        render :show, status: :updated, location: api_user_url(@user)
       else
         render json: @user.errors, status: :unprocessable_entity
       end

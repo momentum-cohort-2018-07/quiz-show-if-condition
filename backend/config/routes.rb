@@ -8,8 +8,8 @@ Rails.application.routes.draw do
     end
     resources :quizzes do
       post 'publish', to: 'quizzes#publish'
-      resources :questions, only: [:create, :update, :show, :destroy] do
-        resources :answers, only: [:create, :update, :show, :destroy]
+      resources :questions, only: [:index, :create, :update, :show, :destroy] do
+        resources :answers, only: [:index, :create, :update, :show, :destroy]
         resources :responses, only: :create
       end
     end

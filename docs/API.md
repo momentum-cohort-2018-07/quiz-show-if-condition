@@ -21,7 +21,6 @@ The request body should be:
   "username": "leonard",
   "password": "password"
 }
-
 ```
 
 The response will be:
@@ -134,12 +133,12 @@ The response will be:
   "data": {
     "quizzes": [
       {
-        id: 1,
-        title: "JavaScript arrays"
+        "id": 1,
+        "title": "JavaScript arrays"
       },
       {
-        id: 2,
-        title: "Rails models"
+        "id": 2,
+        "title": "Rails models"
       }
     ]
   }

@@ -44,7 +44,7 @@ class API::QuizzesController < ApplicationController
     else
       if @quiz.update(published: true)
         @quiz.questions.sort_by(&:created_at).each_with_index do |question, index|
-          question.update(number: index+1)
+          question.update(number: index + 1)
         end
         render :show, status: :updated, location: api_quiz_url(@quiz)
       else

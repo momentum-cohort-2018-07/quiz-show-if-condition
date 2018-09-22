@@ -1,22 +1,25 @@
 class API::AnswersController < ApplicationController
-  before_action :set_answer, only: [:show, :update, :destroy]
+  before_action :set_answer
 
   def index
-    @answers = Answer.where("question_id=?", params[:question_id])
+    @answers = Answer.where("question_id=?", @question.id)
   end
 
   def show
   end
 
   def create
-    @quiz = Quiz.find(params[:quiz_id])
-    @question = Question.find(params[:question_id])
     if current_user.id != @quiz.user.id
-      render json: {error: "Must own the quiz to add a new question"}, status: :unprocessable_entity
+      render json: {error: "Must own the quiz to add a new answer"}, status: :unprocessable_entity
     elsif @quiz.published
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
+    elsif answer_params.key?(:correct) && answer_params[:correct]
+      @correct_answer = Answer.where("question_id=?", params[:question_id]).where('correct = ?', true)[0]
+      if !@correct_answer.nil?
+        render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
+      end
     else
-      @answer = Answer.new(answer_params)
+      @answer = Answer.new({question_id: @question.id}.merge(answer_params))
       if @answer.save
         render :show, status: :created, location: api_quiz_question_answer_url(@quiz, @question, @answer)
       else
@@ -26,17 +29,21 @@ class API::AnswersController < ApplicationController
   end
 
   def update
-    if answer_params.key?(:correct) && answer_params[:correct]
+    if current_user.id != @quiz.user.id
+      render json: {error: "Must be the quiz owner to update a question"}
+    elsif @quiz.published
+      render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
+    elsif answer_params.key?(:correct) && answer_params[:correct]
       @correct_answer = Answer.where("question_id=?", params[:question_id]).where('correct = ?', true)[0]
       if @correct_answer && @correct_answer.id != @answer.id
         render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
       end
-    end
-
-    if @answer.update(answer_params)
-      render :show, status: :ok, location: api_quiz_question_answer_url(@quiz, @question, @answer)
     else
-      render json: @answer.errors, status: :unprocessable_entity
+      if @answer.update({question_id: @question.id}.merge(answer_params))
+        render :show, status: :ok, location: api_quiz_question_answer_url(@quiz, @question, @answer)
+      else
+        render json: @answer.errors, status: :unprocessable_entity
+      end
     end
   end
 
@@ -44,7 +51,7 @@ class API::AnswersController < ApplicationController
     if current_user.id != @quiz.user.id
       render json: {error: "Must be the quiz owner to delete a question"}
     elsif @quiz.published
-      render json: {error: "Cannot edit a published quiz"}, status: :unauthorized      
+      render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     else
       @answer.destroy
       head :no_content
@@ -55,9 +62,10 @@ class API::AnswersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_answer
-    @answer = Answer.find(params[:id])
-    @question = @answer.question
-    @quiz = @question.quiz
+    @quiz = Quiz.find(params[:quiz_id])
+    @question = Question.where('quiz_id = ?', @quiz.id).find_by_number(params[:question_id])
+    @question ||= Question.where('quiz_id = ?', @quiz.id).find(params[:question_id])
+    @answer = Answer.where('question_id = ?', @question.id).find(params[:id]) if params.key?(:id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

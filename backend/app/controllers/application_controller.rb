@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
   helper_method :current_user
   helper_method :logged_in?
   before_action :verify_authentication
-  protect_from_forgery unless: -> { request.format.json? }
+  # protect_from_forgery unless: -> { request.format.json? }
 
   def verify_authentication
     unless current_user

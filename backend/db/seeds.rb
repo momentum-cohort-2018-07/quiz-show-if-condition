@@ -8,27 +8,29 @@
 
 require 'csv'
 
-user = User.new
-user.username = 'admin'
-user.password = 'admin'
-user.admin = true
-user.save
+User.create!(
+  username: 'admin',
+  password: 'admin',
+  admin: true
+)
 
+User.create!(
+  username: 'user',
+  password: 'user'
+)
 
-user = User.new
-user.username = 'user'
-user.password = 'user'
-user.save
-
-
-CSV.foreach('../samples/quizzes.csv', headers: true) do |row|
-  Quiz.create(row.to_h)
+CSV.foreach('db/quizzes.csv', headers: true) do |row|
+  Quiz.create!(row.to_h)
 end
 
-CSV.foreach('../samples/questions.csv', headers: true) do |row|
-  Question.create(row.to_h)
+CSV.foreach('db/questions.csv', headers: true) do |row|
+  Question.create!(row.to_h)
 end
 
-CSV.foreach('../samples/answers.csv', headers: true) do |row|
-  Answer.create(row.to_h)
+CSV.foreach('db/answers.csv', headers: true) do |row|
+  Answer.create!(row.to_h)
+end
+
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
 end

@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
   helper_method :current_user
+  helper_method :logged_in?
   before_action :verify_authentication
 
   def verify_authentication
@@ -16,5 +17,9 @@ class ApplicationController < ActionController::API
     @current_user ||= authenticate_with_http_token do |token, options|
       User.find_by_token(token)
     end
+  end
+
+  def logged_in?
+    !!current_user
   end
 end

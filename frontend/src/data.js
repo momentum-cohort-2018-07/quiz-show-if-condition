@@ -1,4 +1,3 @@
-
 import request from 'superagent'
 
 let apiDomain = 'https://quizzlybear-api.herokuapp.com/api'
@@ -8,31 +7,28 @@ let userToken
 const apiCalls = {
   login: (username, password) => {
     return (request.post(`${apiDomain}/login`)
-      .send(console.log({ 'username': `${username}`,
-        'password': `${password}` }))
-      .then(response => response.body.token)
-      .then(token => {
-        apiCalls.setUserToken(token)
+      .send({ 'username': `${username}`,
+        'password': `${password}` })
+      .then(response => {
+        console.log(apiCalls.setUserToken(response.body.token), response.body, 'response')
+        console.log(apiCalls.checkAdmin(response.body.admin, response.body.token), response.body.admin, 'checking')
       })
-      .then((response, token) => {
-        apiCalls.checkAdmin(response, token)
-      }
-      )
     )
   },
-  checkAdmin: (response, token) => {
-    console.log('here')
-    if (response.body.admin === true) {
+  checkAdmin: (admin, token) => {
+    if (admin === true) {
       apiCalls.getAdminProfile(token)
     } else {
-      apiCalls.getUser(token)
+      apiCalls.getUserProfile(token)
     }
+  },
+  getUserProfile: (token) => {
+    return request.get(`${apiDomain}/profile`)
   },
   getAdminProfile: (token) => {
     return request.get(`${apiDomain}/quizzes`)
   },
   setUserToken: (token) => {
-    console.log(token, 'token')
     userToken = token
   },
   getUserToken: () => {

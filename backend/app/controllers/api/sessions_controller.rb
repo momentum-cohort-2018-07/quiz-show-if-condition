@@ -5,7 +5,7 @@ class API::SessionsController < ApplicationController
     user = User.find_by_username(params[:username])
 
     if user && user.authenticate(params[:password])
-      render json: {token: user.token}
+      render json: {token: user.token, admin: user.admin}, status: :ok
     else
       render json: {error: "Invalid token"}, status: :unauthorized
     end

@@ -3,8 +3,15 @@ import './App.css'
 import 'bulma/css/bulma.css'
 
 import Login from './Login'
+import Dashboard from './Dashboard'
 
 class App extends Component {
+  constructor () {
+    super()
+    this.state = {
+      currentUser: token
+    }
+  }
   render () {
     return (
       <div>

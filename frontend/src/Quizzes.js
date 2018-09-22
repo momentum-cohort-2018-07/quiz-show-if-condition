@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import apiCalls from './data'
 import Quiz from './quiz'
 
-class Quizzes extends Component {
+class Dashboard extends Component {
   constructor () {
     super()
     this.state = {
@@ -22,4 +22,4 @@ class Quizzes extends Component {
   }
 }
 
-export default Quizzes
+export default Dashboard

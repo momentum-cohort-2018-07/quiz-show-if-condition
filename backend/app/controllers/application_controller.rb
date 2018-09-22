@@ -10,7 +10,6 @@ class ApplicationController < ActionController::API
     end
   end
 
-
   protected
 
   def current_user

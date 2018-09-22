@@ -17,7 +17,7 @@ class API::QuizzesController < ApplicationController
     else
       @quiz = Quiz.new(title: quiz_params[:title], user_id: current_user.id)
       if @quiz.save
-        render :show, status: :created, location: api_question_url(@quiz)
+        render :show, status: :created, location: api_quiz_url(@quiz)
       else
         render json: @quiz.errors, status: :unprocessable_entity
       end

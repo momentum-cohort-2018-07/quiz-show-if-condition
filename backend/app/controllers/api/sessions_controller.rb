@@ -7,7 +7,7 @@ class API::SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       render json: {token: user.token}
     else
-      render json: {error: "Invalid"}, status: :unauthorized
+      render json: {error: "Invalid token"}, status: :unauthorized
     end
   end
 

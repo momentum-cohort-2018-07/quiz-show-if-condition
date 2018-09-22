@@ -6,6 +6,16 @@ class API::QuizzesController < ApplicationController
     @quizzes = Quiz.where('published = ?', true)
   end
 
+  def published_quizzes
+    @quizzes = Quiz.where({published: true, user_id: params[:user_id]})
+    render :index, location: api_quizzes_url
+  end
+
+  def unpublished_quizzes
+    @quizzes = Quiz.where({published: false, user_id: params[:user_id]})
+    render :index, location: api_quizzes_url
+  end
+
   def show
   end
 
@@ -41,6 +51,10 @@ class API::QuizzesController < ApplicationController
     @user = @quiz.user
     if current_user.id != @user.id
       render json: {error: "Must be the owner to publish this quiz"}, status: :unauthorized
+    elsif Answer.where(question_id: Question.where('quiz_id = ?', @quiz.id)).where('correct = ?', true).length < @quiz.questions.count
+      render json: {error: "All questions must have a correct answer before publishing"}, status: :unprocessable_entity
+    elsif Answer.where(question_id: Question.where('quiz_id = ?', @quiz.id)).where('correct = ?', true).length > @quiz.questions.count
+      render json: {error: "One of more questions have multiple correct answer. Please fix before publishing"}, status: :unprocessable_entity
     else
       if @quiz.update(published: true)
         @quiz.questions.sort_by(&:created_at).each_with_index do |question, index|

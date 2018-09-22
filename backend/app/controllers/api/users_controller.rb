@@ -8,7 +8,6 @@ class API::UsersController < ApplicationController
   end
 
   def show
-
   end
 
   def profile
@@ -19,7 +18,6 @@ class API::UsersController < ApplicationController
   end
 
   def create
-
     @user = User.new(user_params)
 
     if @user.save

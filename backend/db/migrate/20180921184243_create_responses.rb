@@ -5,6 +5,7 @@ class CreateResponses < ActiveRecord::Migration[5.2]
       t.references :quiz, foreign_key: true
       t.references :question, foreign_key: true
       t.references :answer, foreign_key: true
+      t.boolean :correct
 
       t.timestamps
     end

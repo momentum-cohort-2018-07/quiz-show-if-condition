@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Label, Input } from 'bloomer'
 
 import Register from './Register'
-import apiCalls from './data'
+import apiCalls from '../data'
 
 class Login extends Component {
   constructor () {

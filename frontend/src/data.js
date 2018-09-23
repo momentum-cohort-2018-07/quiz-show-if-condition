@@ -17,6 +17,9 @@ const apiCalls = {
       })
     )
   },
+  authRequest: () => {
+    return request.set('Authorization', `Bearer ${userToken}`)
+  },
   setUserToken: (token) => {
     userToken = token
   },
@@ -44,9 +47,10 @@ const apiCalls = {
     return request.get(`${apiDomain}/quizzes`)
   },
   getQuestions: (quizID) => {
-    return (request.get(`${apiDomain}/quizzes/${quizID}`)
+    return (request.get(`${apiDomain}/quizzes/${quizID}.json`)
+      .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
-        let questions = response.body
+        let questions = response.body.data.relationships.questions
         return (questions)
       }))
   }

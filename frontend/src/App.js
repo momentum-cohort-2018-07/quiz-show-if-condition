@@ -14,6 +14,9 @@ class App extends Component {
       currentUser: null
     }
     this.setCurrentUser = this.setCurrentUser.bind(this)
+    this.setUserToken = this.setUserToken.bind(this)
+    this.setCurrentUser = this.setCurrentUser.bind(this)
+    this.onLogout = this.onLogout.bind(this)
 
     const username = window.localStorage.getItem('username')
     const token = window.localStorage.getItem('token')
@@ -21,9 +24,6 @@ class App extends Component {
       this.state.currentUser = { username, token }
       apiCalls.setUserToken(token)
     }
-
-    this.setUserToken = this.setUserToken.bind(this)
-    this.setCurrentUser = this.setCurrentUser.bind(this)
   }
   setCurrentUser (user) {
     console.log(this.state.currentUser, 'current user')
@@ -35,11 +35,17 @@ class App extends Component {
     e.preventDefault()
     apiCalls.getUserToken()
   }
+  onLogout () {
+    this.setState({currentUser: false})
+  }
+
   render () {
+    const { currentUser } = this.state
+
     if (this.state.currentUser) {
       return (
         <div className='App'>
-          <Sidebar />
+          <Sidebar onLogout={this.onLogout} currentUser={currentUser} />
           <main className='main'>
             <div className='board'>
               <Dashboard setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />

@@ -15,7 +15,29 @@ const apiCalls = {
         apiCalls.checkAdmin(response.body.admin, response.body.token)
         return { username, token }
       })
+      .catch(err => {
+        if (err.response.statusCode === 422) {
+          throw new Error('You must provide a username and password')
+        } else if (err.response.statusCode === 401) {
+          throw new Error('There is no user with that username and password')
+        }
+      })
     )
+  },
+  register: (username, password) => {
+    return (request.post(`${apiDomain}/users`)
+      .send({ 'username': `${username}`,
+        'password': `${password}`})
+      .then(response => {
+        console.log(response, 'response')
+        let token = response.body.token
+        apiCalls.setUserToken(token)
+        apiCalls.checkAdmin(response.body.admin, response.body.token)
+        return { username, token }
+      }))
+      .catch((err) => {
+        console.log(err)
+      })
   },
   setUserToken: (token) => {
     userToken = token

@@ -28,8 +28,7 @@ const apiCalls = {
       .then(response => {
         let quizzes = response.body
         return (quizzes)
-      })
-    )
+      }))
   },
   checkAdmin: (admin, token) => {
     if (admin === true) {
@@ -43,6 +42,13 @@ const apiCalls = {
   },
   getAdminProfile: (token) => {
     return request.get(`${apiDomain}/quizzes`)
+  },
+  getQuestions: (quizID) => {
+    return (request.get(`${apiDomain}/quizzes/${quizID}`)
+      .then(response => {
+        let questions = response.body
+        return (questions)
+      }))
   }
 }
 

@@ -6,8 +6,11 @@ class Dashboard extends Component {
   constructor () {
     super()
     this.state = {
-      quizzes: []
+      quizzes: [],
+      published: true,
+      active: false
     }
+    this.makeActive = this.makeActive.bind(this)
   }
   componentDidMount () {
     this.getQuizzes()
@@ -18,7 +21,14 @@ class Dashboard extends Component {
       console.log(this.state.quizzes, 'quizzes in state')
     })
   }
+  makeActive (quizID) {
+    apiCalls.getQuestions(quizID)
+    this.setState({ active: true })
+  }
   render () {
+    if (this.state.active) {
+      <Active />
+    } else {
     return (<div>
       {this.state.quizzes.map((quiz) => <Quiz key={quiz.id} quiz={quiz} />)}
     </div>)

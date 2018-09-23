@@ -4,7 +4,9 @@ class Quiz extends Component {
   render () {
     let { quiz } = this.props
     return (
-      <div key={quiz.id}>{quiz.title}</div>
+      <div className='quiz-node'>
+        <div key={quiz.id}>{quiz.title}</div>
+      </div>
     )
   }
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import './App.css'
 import 'bulma/css/bulma.css'
 import { Button, Label, Input } from 'bloomer'
-import apiCalls from './data'
+import apiCalls from '../data'
 
 class Register extends Component {
   constructor () {
@@ -31,15 +30,12 @@ class Register extends Component {
       <div className='column'>
         <Button className='login button'onClick={e => this.props.register(e)}> Login</Button>
         <Button className='login button' onClick={e => this.register(e, false)}> Register</Button>
-        <Label>Username
-          <Input className='username' onChange={event => this.handleChange('username', event.target.value)} />
-        </Label>
-        <Label>Password
-          <Input className='username' type='password' onChange={event => this.handleChange('password', event.target.value)} />
-        </Label>
-        <Label>Email Address
-          <Input className='username' type='email' onChange={event => this.handleChange('password', event.target.value)} />
-        </Label>
+        <Label>Username</Label>
+        <Input className='username' onChange={event => this.handleChange('username', event.target.value)} />
+        <Label>Password</Label>
+        <Input className='username' type='password' onChange={event => this.handleChange('password', event.target.value)} />
+        <Label>Email Address </Label>
+        <Input className='username' type='email' onChange={event => this.handleChange('password', event.target.value)} />
       </div>
     </div>
     )

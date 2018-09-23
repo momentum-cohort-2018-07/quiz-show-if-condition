@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import apiCalls from './data'
-import Quiz from './quiz'
+// import Quiz from './quiz'
 
 class Dashboard extends Component {
   constructor () {
@@ -16,8 +16,8 @@ class Dashboard extends Component {
     apiCalls.getQuizzes().then(quizzes => this.setState({ quizzes }))
   }
   render () {
-    return (<div>
-      {this.state.quizzes.map((quiz) => <Quiz key={quiz.id} quiz={quiz} />)}
+    return (<div>Hi
+      {/* {this.state.quizzes.map((quiz) => <Quiz key={quiz.id} quiz={quiz} />)} */}
     </div>)
   }
 }

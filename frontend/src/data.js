@@ -15,6 +15,12 @@ const apiCalls = {
       })
     )
   },
+  setUserToken: (token) => {
+    userToken = token
+  },
+  getUserToken: () => {
+    return userToken
+  },
   getQuizzes: () => {
     return (request.get(`${apiDomain}/quizzes`))
       .then(response => response.body.quizzes)
@@ -31,12 +37,6 @@ const apiCalls = {
   },
   getAdminProfile: (token) => {
     return request.get(`${apiDomain}/quizzes`)
-  },
-  setUserToken: (token) => {
-    userToken = token
-  },
-  getUserToken: () => {
-    return userToken
   }
 }
 

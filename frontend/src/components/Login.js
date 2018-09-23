@@ -26,6 +26,7 @@ class Login extends Component {
   }
   setUser (e) {
     e.preventDefault()
+    console.log('im here')
     this.handleSubmit(e)
     this.props.setUserToken(e)
   }
@@ -35,7 +36,7 @@ class Login extends Component {
     let username = this.state.username
     let password = this.state.password
     apiCalls.login(username, password)
-      .then(console.log(user => setCurrentUser(user), 'user'))
+      .then(user => setCurrentUser(user))
   }
   register (e, conditional) {
     e.preventDefault()

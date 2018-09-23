@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
-import './App.css'
+import './index.css'
 import 'bulma/css/bulma.css'
 
-import Login from './Login'
+import Login from './components/Login'
+import Sidebar from './components/Sidebar'
 
 class App extends Component {
-  
   render () {
     return (
-      <div>
-        <div className='columns'>
-          <div className='column is-one-fifth'>
-            <h1>Quizzly Bear</h1>
+      <div className='App'>
+        <Sidebar />
+        <main className='main'>
+          <div className='board'>
+            <Login />
           </div>
-          <Login />
-        </div>
+        </main>
       </div>
     )
   }

@@ -10,10 +10,20 @@ const apiCalls = {
       .send({ 'username': `${username}`,
         'password': `${password}` })
       .then(response => {
-        console.log(apiCalls.setUserToken(response.body.token), response.body, 'response')
-        console.log(apiCalls.checkAdmin(response.body.admin, response.body.token), response.body.admin, 'checking')
+        apiCalls.setUserToken(response.body.token)
+        apiCalls.checkAdmin(response.body.admin, response.body.token)
       })
     )
+  },
+  setUserToken: (token) => {
+    userToken = token
+  },
+  getUserToken: () => {
+    return userToken
+  },
+  getQuizzes: () => {
+    return (request.get(`${apiDomain}/quizzes`))
+      .then(response => response.body.quizzes)
   },
   checkAdmin: (admin, token) => {
     if (admin === true) {
@@ -27,12 +37,6 @@ const apiCalls = {
   },
   getAdminProfile: (token) => {
     return request.get(`${apiDomain}/quizzes`)
-  },
-  setUserToken: (token) => {
-    userToken = token
-  },
-  getUserToken: () => {
-    return userToken
   }
 }
 

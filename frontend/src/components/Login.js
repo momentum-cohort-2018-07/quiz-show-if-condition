@@ -49,15 +49,13 @@ class Login extends Component {
       )
     } else {
       return (<div className='column'>
-        <Button className='login button' > Login</Button>
-        <Button className='login button' onClick={e => this.register(e, true)}> Register</Button>
-        <Label>Username
-          <Input className='username' onChange={event => this.handleUsernameChange(event.target.value)} />
-        </Label>
-        <Label>Password
-          <Input className='username' onChange={event => this.handlePasswordChange(event.target.value)} />
-        </Label>
-        <Button className='login button' type='submit' onClick={e => this.setUser(e)}>Submit</Button>
+        <a > Login</a>
+        <a onClick={e => this.register(e, true)}> Register</a>
+        <Label>Username</Label>
+        <Input className='username' onChange={event => this.handleUsernameChange(event.target.value)} />
+        <Label>Password</Label>
+        <Input className='username' type='password' onChange={event => this.handlePasswordChange(event.target.value)} />
+        <Button className='is-primary' type='submit' onClick={e => this.setUser(e)}>Submit</Button>
       </div>
       )
     }

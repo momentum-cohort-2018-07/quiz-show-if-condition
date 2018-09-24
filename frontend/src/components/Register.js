@@ -8,34 +8,37 @@ class Register extends Component {
     super()
     this.state = {
       username: '',
-      password: '',
-      emailaddress: ''
+      password: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleUsername = this.handleUsername.bind(this)
+    this.handlePassword = this.handlePassword.bind(this)
   }
-  handleChange (field, value) {
-    this.setState({ field: value })
+  handleUsername (value) {
+    this.setState({ username: value })
   }
+
+  handlePassword (value) {
+    this.setState({ password: value })
+  }
+
   handleSubmit (e) {
     e.preventDefault()
     let username = this.state.username
     let password = this.state.password
-    apiCalls.login(username, password)
-    console.log(username, 'username')
-    console.log(password, 'password')
+    apiCalls.register(username, password)
   }
   render () {
     return (<div>
       <div className='column'>
-        <Button className='login button'onClick={e => this.props.register(e)}> Login</Button>
-        <Button className='login button' onClick={e => this.register(e, false)}> Register</Button>
+        <a onClick={e => this.props.register(e)}> Login</a>
+        <a onClick={e => this.register(e, false)}> Register</a>
         <Label>Username</Label>
-        <Input className='username' onChange={event => this.handleChange('username', event.target.value)} />
+        <Input className='username' onChange={event => this.handleUsername(event.target.value)} />
         <Label>Password</Label>
-        <Input className='username' type='password' onChange={event => this.handleChange('password', event.target.value)} />
-        <Label>Email Address </Label>
-        <Input className='username' type='email' onChange={event => this.handleChange('password', event.target.value)} />
+        <Input className='username' type='password' onChange={event => this.handlePassword(event.target.value)} />
+
+        <Button className='is-primary' onClick={this.handleSubmit}>Submit</Button>
       </div>
     </div>
     )

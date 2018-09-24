@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Label, Input } from 'bloomer'
+import { Button, Label, Input, Notification } from 'bloomer'
 import Card from './Card'
 
 import Register from './Register'
@@ -11,7 +11,8 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      registering: false
+      registering: false,
+      errMsg: null
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.register = this.register.bind(this)
@@ -28,13 +29,18 @@ class Login extends Component {
     let { setCurrentUser } = this.props
     apiCalls.login(username, password)
       .then(user => setCurrentUser(user))
+      .catch(err => {
+        this.setState({
+          errMsg: err.message
+        })
+      })
   }
   register (e, conditional) {
     e.preventDefault()
     this.setState({ 'registering': conditional })
   }
   render () {
-    const { username, password } = this.state
+    const { username, password, errMsg } = this.state
     if (this.state.registering) {
       return (<Register setUser={this.setUser} register={this.register} />
       )
@@ -46,6 +52,11 @@ class Login extends Component {
             &nbsp;|&nbsp;
             <a onClick={e => this.register(e, true)}> Register</a>
           </div>
+          { errMsg &&
+          <Notification isColor='danger'>
+            {errMsg}
+          </Notification>
+          }
           <Label>Username</Label>
           <Input className='username' value={username} onChange={(e) => this.setState({username: e.target.value})} />
           <Label>Password</Label>

@@ -35,6 +35,8 @@ class App extends Component {
     apiCalls.getUserToken()
   }
   onLogout () {
+    window.localStorage.removeItem('username')
+    window.localStorage.removeItem('token')
     this.setState({ currentUser: false })
   }
 

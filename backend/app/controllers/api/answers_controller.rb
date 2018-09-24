@@ -14,7 +14,8 @@ class API::AnswersController < ApplicationController
     elsif @quiz.published
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     elsif answer_params.key?(:correct) && answer_params[:correct]
-      @correct_answer = Answer.where("question_id=?", params[:question_id]).where('correct = ?', true)[0]
+      
+      @correct_answer = Answer.find_by(question_id: params[:question_id], correct: true)
       if !@correct_answer.nil?
         render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
       end
@@ -34,7 +35,7 @@ class API::AnswersController < ApplicationController
     elsif @quiz.published
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     elsif answer_params.key?(:correct) && answer_params[:correct]
-      @correct_answer = Answer.where("question_id=?", params[:question_id]).where('correct = ?', true)[0]
+      @correct_answer = Answer.find_by(question_id: params[:question_id], correct: true)
       if @correct_answer && @correct_answer.id != @answer.id
         render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
       end

@@ -1,36 +1,36 @@
-#Components
+# Components
 Below is an overview of components the props they are passed and their states.
 
-##App
-*State
-  *currentUser
+## App
+* State
+  * currentUser
 
-##Card
-*Props
+## Card
+* Props
   *children
   
-##Dashboard
-*State 
+## Dashboard
+* State 
   *quizzes
-*Props
-  *setUserToken
-  *setCurrentUser
+* Props
+  * setUserToken
+  * setCurrentUser
 
-##Login
-*State
-  *username
-  *password
-  *errMsg
-  *registering
-*Props
-  *setUserToken
-  *setCurrentUser
+## Login
+* State
+  * username
+  * password
+  * errMsg
+  * registering
+* Props
+  * setUserToken
+  * setCurrentUser
 
-  ##Sidebar
-  *Props
-    *onLogout
-    *currentUser
+  ## Sidebar
+  * Props
+    * onLogout
+    * currentUser
 
-##Quiz
-*Props
-  *quiz
+## Quiz
+* Props
+  * quiz

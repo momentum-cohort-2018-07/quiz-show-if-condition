@@ -18,9 +18,10 @@ class Register extends Component {
   handleSubmit (e) {
     e.preventDefault()
     const { username, password, passwordConf } = this.state
+    const {setUser} = this.props
     if (passwordConf === password) {
       apiCalls.register(username, password)
-        .then(user => this.props.setUser(user))
+        .then(user => setUser(user))
         .catch(err => {
           this.setState({
             errMsg: err.message
@@ -45,17 +46,15 @@ class Register extends Component {
             {errMsg}
           </Notification>
           }
-          <form>
-            <Field>
-              <Label>Username</Label>
-              <Input value={username} onChange={(e) => this.setState({username: e.target.value})} />
-              <Label>Password</Label>
-              <Input value={password} type='password' onChange={(e) => this.setState({password: e.target.value})} />
-              <Label>Password</Label>
-              <Input value={passwordConf} type='password' onChange={(e) => this.setState({passwordConf: e.target.value})} />
-              <Button className='is-primary' onClick={this.handleSubmit}>Register</Button>
-            </Field>
-          </form>
+          <Field>
+            <Label>Username</Label>
+            <Input value={username} onChange={e => this.setState({username: e.target.value})} />
+            <Label>Password</Label>
+            <Input value={password} type='password' onChange={e => this.setState({password: e.target.value})} />
+            <Label>Confirm Password</Label>
+            <Input value={passwordConf} type='password' onChange={e => this.setState({passwordConf: e.target.value})} />
+            <Button className='is-primary' onClick={this.handleSubmit}>Register</Button>
+          </Field>
         </div>
       </Card>
     )

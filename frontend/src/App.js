@@ -32,7 +32,6 @@ class App extends Component {
     this.setState({ currentUser: user })
   }
   setUserToken (e) {
-    e.preventDefault()
     apiCalls.getUserToken()
   }
   onLogout () {

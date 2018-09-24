@@ -16,9 +16,9 @@ const apiCalls = {
         return { username, token }
       })
       .catch(err => {
-        if (err.response.statusCode === 422) {
+        if (err.response.statusCode === 401) {
           throw new Error('You must provide a username and password')
-        } else if (err.response.statusCode === 401) {
+        } else if (err.response.statusCode === 422) {
           throw new Error('There is no user with that username and password')
         }
       })

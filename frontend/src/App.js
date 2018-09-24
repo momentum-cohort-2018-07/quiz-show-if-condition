@@ -4,7 +4,7 @@ import 'bulma/css/bulma.css'
 
 import Login from './components/Login'
 import Sidebar from './components/Sidebar'
-import apiCalls from './data'
+import apiCalls from './apiCalls'
 import Dashboard from './components/Dashboard'
 
 class App extends Component {
@@ -26,17 +26,18 @@ class App extends Component {
     }
   }
   setCurrentUser (user) {
-    console.log(this.state.currentUser, 'current user')
     window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', user.token)
     this.setState({ currentUser: user })
+    console.log(this.state.currentUser, 'current user')
   }
   setUserToken (e) {
-    e.preventDefault()
     apiCalls.getUserToken()
   }
   onLogout () {
-    this.setState({currentUser: false})
+    window.localStorage.removeItem('username')
+    window.localStorage.removeItem('token')
+    this.setState({ currentUser: false })
   }
 
   render () {

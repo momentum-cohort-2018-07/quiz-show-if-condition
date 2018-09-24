@@ -26,6 +26,16 @@ body {
     flex: 0 1 100%;
 }
 
+.Card {
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 15px 15px 34px -17px rgba(0,0,0,0.75);
+  padding: 1rem 2rem;
+  margin: 2rem auto;
+  width: 75%;
+  background-color: white;
+}
+
 @media only screen and (min-width: 1025px) {
     .sidebar {
       flex: 0 0 300px;

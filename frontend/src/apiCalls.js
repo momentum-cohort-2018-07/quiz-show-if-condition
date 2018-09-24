@@ -1,4 +1,4 @@
-import request from 'superagent'
+import request from 'superagent/superagent.js'
 
 let apiDomain = 'https://quizzlybear-api.herokuapp.com/api'
 
@@ -16,10 +16,9 @@ const apiCalls = {
         return { username, token }
       })
       .catch(err => {
-        if (err.response.statusCode === 422) {
-          throw new Error('You must provide a username and password')
-        } else if (err.response.statusCode === 401) {
-          throw new Error('There is no user with that username and password')
+        if (err.response.statusCode === 401) {
+          console.log(err.response, 'response')
+          throw new Error(err.response.body.error)
         }
       })
     )
@@ -27,7 +26,7 @@ const apiCalls = {
   register: (username, password) => {
     return (request.post(`${apiDomain}/users`)
       .send({ 'username': `${username}`,
-        'password': `${password}`})
+        'password': `${password}` })
       .then(response => {
         console.log(response, 'response')
         let token = response.body.token
@@ -37,6 +36,14 @@ const apiCalls = {
       }))
       .catch((err) => {
         console.log(err)
+        if (err.response.statusCode === 422) {
+          let passwordErr = err.response.body.password
+          console.log(passwordErr)
+          let usernameErr = err.response.body.username
+          console.log(usernameErr)
+          let newArray = passwordErr.concat(usernameErr)
+          throw new Error(newArray)
+        }
       })
   },
   setUserToken: (token) => {
@@ -59,6 +66,15 @@ const apiCalls = {
     } else {
       apiCalls.getUserProfile(token)
     }
+  },
+  getQuestions: (quizID) => {
+    return (request.get(`${apiDomain}/quizzes/${quizID}.json`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        let questions = response.body.data.relationships.questions
+        console.log(questions, 'questions')
+        return (questions)
+      }))
   },
   getUserProfile: (token) => {
     return request.get(`${apiDomain}/profile`)

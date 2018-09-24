@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Label, Input, Field, Notification } from 'bloomer'
 import Card from './Card'
 import 'bulma/css/bulma.css'
-import apiCalls from '../data'
+import apiCalls from '../apiCalls'
 
 class Register extends Component {
   constructor () {

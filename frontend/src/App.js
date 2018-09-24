@@ -37,6 +37,8 @@ class App extends Component {
     console.log(this.state.currentUser, 'current user')
   }
   onLogout () {
+    window.localStorage.removeItem('username')
+    window.localStorage.removeItem('token')
     this.setState({ currentUser: false })
   }
 

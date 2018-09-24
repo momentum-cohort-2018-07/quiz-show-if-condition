@@ -26,6 +26,7 @@ class Dashboard extends Component {
     this.setState({ active: true })
     apiCalls.getQuestions(quizID).then(questions => {
       this.setState({ questions })
+      console.log(this.state.questions, 'question data')
     })
   }
   render () {

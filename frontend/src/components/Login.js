@@ -26,7 +26,6 @@ class Login extends Component {
   }
   setUser (e) {
     e.preventDefault()
-    console.log('im here')
     this.handleSubmit(e)
     this.props.setUserToken(e)
   }

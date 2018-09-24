@@ -27,9 +27,8 @@ const apiCalls = {
   register: (username, password) => {
     return (request.post(`${apiDomain}/users`)
       .send({ 'username': `${username}`,
-        'password': `${password}`})
+        'password': `${password}` })
       .then(response => {
-        console.log(response, 'response')
         let token = response.body.token
         apiCalls.setUserToken(token)
         apiCalls.checkAdmin(response.body.admin, response.body.token)

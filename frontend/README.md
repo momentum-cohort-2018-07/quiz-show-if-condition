@@ -7,11 +7,11 @@ Below is an overview of components the props they are passed and their states.
 
 ## Card
 * Props
-  *children
+  * 43children
   
 ## Dashboard
 * State 
-  *quizzes
+  * quizzes
 * Props
   * setUserToken
   * setCurrentUser
@@ -26,7 +26,7 @@ Below is an overview of components the props they are passed and their states.
   * setUserToken
   * setCurrentUser
 
-  ## Sidebar
+## Sidebar
   * Props
     * onLogout
     * currentUser

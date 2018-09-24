@@ -3,7 +3,7 @@ import { Button, Label, Input } from 'bloomer'
 import Card from './Card'
 
 import Register from './Register'
-import apiCalls from '../data'
+import apiCalls from '../apiCalls'
 
 class Login extends Component {
   constructor () {

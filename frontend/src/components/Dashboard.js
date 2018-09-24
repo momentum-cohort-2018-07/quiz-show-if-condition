@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import apiCalls from '../data'
+import apiCalls from '../apiCalls'
 import QuizBtn from './QuizBtn'
 import Active from './Active'
 

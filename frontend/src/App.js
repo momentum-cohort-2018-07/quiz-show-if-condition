@@ -4,7 +4,7 @@ import 'bulma/css/bulma.css'
 
 import Login from './components/Login'
 import Sidebar from './components/Sidebar'
-import apiCalls from './data'
+import apiCalls from './apiCalls'
 import Dashboard from './components/Dashboard'
 
 class App extends Component {

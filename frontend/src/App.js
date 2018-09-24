@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect
+} from 'react-router-dom'
 import './index.css'
 import 'bulma/css/bulma.css'
 
 import Login from './components/Login'
+import QuizBtn from './components/QuizBtn'
+import Register from './components/Register'
 import Sidebar from './components/Sidebar'
 import apiCalls from './apiCalls'
 import Dashboard from './components/Dashboard'
@@ -13,8 +20,6 @@ class App extends Component {
     this.state = {
       currentUser: null
     }
-    this.setCurrentUser = this.setCurrentUser.bind(this)
-    this.setUserToken = this.setUserToken.bind(this)
     this.setCurrentUser = this.setCurrentUser.bind(this)
     this.onLogout = this.onLogout.bind(this)
 
@@ -31,38 +36,49 @@ class App extends Component {
     this.setState({ currentUser: user })
     console.log(this.state.currentUser, 'current user')
   }
-  setUserToken (e) {
-    apiCalls.getUserToken()
-  }
   onLogout () {
     this.setState({ currentUser: false })
   }
 
   render () {
     const { currentUser } = this.state
-
-    if (this.state.currentUser) {
-      return (
+    return (
+      <Router>
         <div className='App'>
           <Sidebar onLogout={this.onLogout} currentUser={currentUser} />
           <main className='main'>
             <div className='board'>
-              <Dashboard setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
+              <Route exact path='/' render={() =>
+                <Guard condition={this.state.currentUser} redirectTo='/login'>
+                  <Dashboard setUserToken={this.setUserToken} onLogout={this.onLogout} setCurrentUser={this.setCurrentUser} />
+                </Guard>} />
+              <Route path='/stacks/:id' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/login'>
+                  <QuizBtn id={match.params.id} />
+                </Guard>
+              } />
+              <Route path='/register' render={() =>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                  <Register setCurrentUser={this.setCurrentUser} />
+                </Guard>}
+              />
+              <Route path='/login' render={() =>
+                <Guard condition={!this.state.currentUser} redirectTo='/'>
+                  <Login setCurrentUser={this.setCurrentUser} />
+                </Guard>}
+              />
             </div>
           </main>
         </div>
-      )
-    }
-    return (
-      <div className='App'>
-        <Sidebar />
-        <main className='main'>
-          <div className='board'>
-            <Login setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
-          </div>
-        </main>
-      </div>
+      </Router>
     )
+  }
+}
+const Guard = ({ redirectTo, condition, children }) => {
+  if (condition) {
+    return children
+  } else {
+    return <Redirect to={redirectTo} />
   }
 }
 

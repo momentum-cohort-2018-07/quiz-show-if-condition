@@ -18,7 +18,7 @@ class Register extends Component {
   handleSubmit (e) {
     e.preventDefault()
     const { username, password, passwordConf } = this.state
-    const {setUser} = this.props
+    const { setUser } = this.props
     if (passwordConf === password) {
       apiCalls.register(username, password)
         .then(user => setUser(user))
@@ -28,7 +28,7 @@ class Register extends Component {
           })
         })
     } else {
-      this.setState({errMsg: 'Your password and confirmation must match.'})
+      this.setState({ errMsg: 'Your password and confirmation must match.' })
     }
   }
   render () {
@@ -48,11 +48,11 @@ class Register extends Component {
           }
           <Field>
             <Label>Username</Label>
-            <Input value={username} onChange={e => this.setState({username: e.target.value})} />
+            <Input value={username} onChange={e => this.setState({ username: e.target.value })} />
             <Label>Password</Label>
-            <Input value={password} type='password' onChange={e => this.setState({password: e.target.value})} />
+            <Input value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
             <Label>Confirm Password</Label>
-            <Input value={passwordConf} type='password' onChange={e => this.setState({passwordConf: e.target.value})} />
+            <Input value={passwordConf} type='password' onChange={e => this.setState({ passwordConf: e.target.value })} />
             <Button className='is-primary' onClick={this.handleSubmit}>Register</Button>
           </Field>
         </div>

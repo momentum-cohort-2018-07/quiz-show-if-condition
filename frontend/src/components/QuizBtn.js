@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class QuizBtn extends Component {
   getQuestion (e, quizID) {
     e.preventDefault()
-    this.props.makeActive(quizID)
+    console.log(this.props.makeActive(quizID), 'make active')
   }
   render () {
     let { quiz } = this.props

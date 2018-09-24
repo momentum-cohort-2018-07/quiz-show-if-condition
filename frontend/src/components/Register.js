@@ -16,12 +16,13 @@ class Register extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit (e) {
+    console.log(e)
     e.preventDefault()
     const { username, password, passwordConf } = this.state
     const { setUser } = this.props
     if (passwordConf === password) {
       apiCalls.register(username, password)
-        .then(user => setUser(user))
+        .then(user => setCurrentUser(user))
         .catch(err => {
           this.setState({
             errMsg: err.message

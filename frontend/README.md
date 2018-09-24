@@ -42,6 +42,10 @@ Below is an overview of Quizzly Bear's components, the props they are passed and
     * onLogout
     * currentUser
 
-## Quiz
+## QuizBtn
 * Props
   * quiz
+
+## Active
+* Props
+  * question

@@ -27,7 +27,7 @@ const apiCalls = {
   register: (username, password) => {
     return (request.post(`${apiDomain}/users`)
       .send({ 'username': `${username}`,
-        'password': `${password}`})
+        'password': `${password}` })
       .then(response => {
         console.log(response, 'response')
         let token = response.body.token
@@ -61,6 +61,15 @@ const apiCalls = {
     } else {
       apiCalls.getUserProfile(token)
     }
+  },
+  getQuestions: (quizID) => {
+    return (request.get(`${apiDomain}/quizzes/${quizID}.json`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        let questions = response.body.data.relationships.questions
+        console.log(questions, 'questions')
+        return (questions)
+      }))
   },
   getUserProfile: (token) => {
     return request.get(`${apiDomain}/profile`)

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import apiCalls from '../apiCalls'
 import Active from './Active'
 
-class QuizBtn extends Component {
+class QuizList extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -19,14 +19,12 @@ class QuizBtn extends Component {
   makeActive (e, quizID) {
     e.preventDefault()
     this.props.makeActive()
-    // console.log(this.props.active, 'active props')
     apiCalls.getQuestions(quizID).then(questions => {
       this.setState({ questions })
     })
   }
   render () {
     let { quiz } = this.props
-    console.log(this.state.active, 'active props')
     if (this.props.active) {
       return (<div>
         {this.state.questions.map((question) => <Active key={question.data.id} question={question.data} />)}
@@ -41,4 +39,4 @@ class QuizBtn extends Component {
     }
   }
 }
-export default QuizBtn
+export default QuizList

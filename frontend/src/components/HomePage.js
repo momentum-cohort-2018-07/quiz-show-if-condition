@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import './index.css'
 import 'bulma/css/bulma.css'
 
-import Login from './components/Login'
-import Sidebar from './components/Sidebar'
-import apiCalls from './apiCalls'
-import Dashboard from './components/Dashboard'
+import Login from './Login'
+import Sidebar from './Sidebar'
+import apiCalls from '../apiCalls'
+import Dashboard from './Dashboard'
 
 class Homepage extends Component {
   constructor () {

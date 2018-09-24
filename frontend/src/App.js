@@ -8,7 +8,7 @@ import './index.css'
 import 'bulma/css/bulma.css'
 
 import Login from './components/Login'
-import QuizBtn from './components/QuizBtn'
+import QuizBtn from './components/QuizList'
 import Register from './components/Register'
 import Sidebar from './components/Sidebar'
 import apiCalls from './apiCalls'

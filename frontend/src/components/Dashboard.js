@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import apiCalls from '../apiCalls'
-import QuizBtn from './QuizBtn'
+import QuizBtn from './QuizList'
 // import Active from './Active'
 
 class Dashboard extends Component {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import apiCalls from '../apiCalls'
-import QuizBtn from './QuizList'
+import QuizList from './QuizList'
 // import Active from './Active'
 
 class Dashboard extends Component {
@@ -9,7 +9,7 @@ class Dashboard extends Component {
     this.state = {
       quizzes: [],
       published: true,
-      active: false
+      activeQuestion: false
     }
     this.makeActive = this.makeActive.bind(this)
   }
@@ -26,7 +26,7 @@ class Dashboard extends Component {
   }
   render () {
     return (<div>
-      {this.state.quizzes.map((quiz) => <QuizBtn key={quiz.id} quiz={quiz} makeActive={this.makeActive} />)}
+      {this.state.quizzes.map((quiz) => <QuizList key={quiz.id} quiz={quiz} makeActive={this.makeActive} />)}
     </div>)
   }
 }

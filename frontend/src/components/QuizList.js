@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import apiCalls from '../apiCalls'
-import Active from './Active'
+import Question from './Question'
 
 class QuizList extends Component {
   constructor (props) {
     super(props)
     this.state = {
       questions: [],
-      active: this.props
+      activeQuestion: this.props
     }
     this.makeActive = this.makeActive.bind(this)
   }
@@ -25,9 +25,10 @@ class QuizList extends Component {
   }
   render () {
     let { quiz } = this.props
-    if (this.props.active) {
+    console.log(this.state.activeQuestion, 'state active question')
+    if (this.props.activeQuestion) {
       return (<div>
-        {this.state.questions.map((question) => <Active key={question.data.id} question={question.data} />)}
+        {this.state.questions.map((question) => <Question key={question.data.id} question={question.data} />)}
       </div>)
     } else {
       return (

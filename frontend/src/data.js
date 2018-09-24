@@ -36,7 +36,9 @@ const apiCalls = {
         return { username, token }
       }))
       .catch((err) => {
-        console.log(err)
+        if (err.response.statusCode === 422) {
+          throw new Error('test')
+        }
       })
   },
   setUserToken: (token) => {

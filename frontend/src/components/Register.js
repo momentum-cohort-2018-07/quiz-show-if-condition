@@ -19,7 +19,7 @@ class Register extends Component {
     console.log(e)
     e.preventDefault()
     const { username, password, passwordConf } = this.state
-    const {setCurrentUser} = this.props
+    const { setUser } = this.props
     if (passwordConf === password) {
       apiCalls.register(username, password)
         .then(user => setCurrentUser(user))
@@ -49,11 +49,11 @@ class Register extends Component {
           }
           <Field>
             <Label>Username</Label>
-            <Input value={username} onChange={e => this.setState({username: e.target.value})} />
+            <Input value={username} onChange={e => this.setState({ username: e.target.value })} />
             <Label>Password</Label>
-            <Input value={password} type='password' onChange={e => this.setState({password: e.target.value})} />
+            <Input value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
             <Label>Confirm Password</Label>
-            <Input value={passwordConf} type='password' onChange={e => this.setState({passwordConf: e.target.value})} />
+            <Input value={passwordConf} type='password' onChange={e => this.setState({ passwordConf: e.target.value })} />
             <Button className='is-primary' onClick={this.handleSubmit}>Register</Button>
           </Field>
         </div>

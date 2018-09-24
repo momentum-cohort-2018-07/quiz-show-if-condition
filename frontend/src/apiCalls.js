@@ -28,7 +28,6 @@ const apiCalls = {
       .send({ 'username': `${username}`,
         'password': `${password}` })
       .then(response => {
-        console.log(response, 'response')
         let token = response.body.token
         apiCalls.setUserToken(token)
         apiCalls.checkAdmin(response.body.admin, response.body.token)

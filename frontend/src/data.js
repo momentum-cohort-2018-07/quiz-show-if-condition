@@ -27,16 +27,17 @@ const apiCalls = {
   register: (username, password) => {
     return (request.post(`${apiDomain}/users`)
       .send({ 'username': `${username}`,
-        'password': `${password}`})
+        'password': `${password}` })
       .then(response => {
-        console.log(response, 'response')
         let token = response.body.token
         apiCalls.setUserToken(token)
         apiCalls.checkAdmin(response.body.admin, response.body.token)
         return { username, token }
       }))
       .catch((err) => {
-        console.log(err)
+        if (err.response.statusCode === 422) {
+          throw new Error('test')
+        }
       })
   },
   setUserToken: (token) => {
@@ -50,8 +51,7 @@ const apiCalls = {
       .then(response => {
         let quizzes = response.body
         return (quizzes)
-      })
-    )
+      }))
   },
   checkAdmin: (admin, token) => {
     if (admin === true) {
@@ -65,6 +65,14 @@ const apiCalls = {
   },
   getAdminProfile: (token) => {
     return request.get(`${apiDomain}/quizzes`)
+  },
+  getQuestions: (quizID) => {
+    return (request.get(`${apiDomain}/quizzes/${quizID}.json`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        let questions = response.body.data.relationships.questions
+        return (questions)
+      }))
   }
 }
 

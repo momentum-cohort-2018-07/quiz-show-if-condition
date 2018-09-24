@@ -14,7 +14,6 @@ class API::AnswersController < ApplicationController
     elsif @quiz.published
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     elsif answer_params.key?(:correct) && answer_params[:correct]
-      
       @correct_answer = Answer.find_by(question_id: params[:question_id], correct: true)
       if !@correct_answer.nil?
         render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
@@ -64,9 +63,8 @@ class API::AnswersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_answer
     @quiz = Quiz.find(params[:quiz_id])
-    @question = Question.where('quiz_id = ?', @quiz.id).find_by_number(params[:question_id])
-    @question ||= Question.where('quiz_id = ?', @quiz.id).find(params[:question_id])
-    @answer = Answer.where('question_id = ?', @question.id).find(params[:id]) if params.key?(:id)
+    @question = Question.find_by(quiz_id: @quiz.id, number: params[:question_id]) || Question.find_by(quiz_id: @quiz.id, id: params[:question_id])
+    @answer = Answer.find_by(question_id: @question.id, id: params[:id]) if params.key?(:id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -18,7 +18,6 @@ class Login extends Component {
     this.register = this.register.bind(this)
   }
   handleSubmit (e) {
-    console.log(this.props.setCurrentUser, 'this.props')
     e.preventDefault()
     const { username, password } = this.state
     let { setCurrentUser } = this.props

@@ -28,6 +28,8 @@ class Register extends Component {
             errMsg: err.message
           })
         })
+    } else {
+      this.setState({ errMsg: 'Your password and confirmation must match.' })
     }
   }
   render () {

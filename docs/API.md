@@ -2,15 +2,13 @@
 
 Welcome to the API docs.
 
-All API access is over HTTP, and accessed from **TODO**. All data is sent and received as JSON.
+All API access is over HTTP, and accessed from `https://quizzlybear-api.herokuapp.com/api/`. All data is sent and received as JSON.
 
 ## :lock: Symbol = Requires Token
 
 ## :a: Symbol = Must be Admin
 
 ## :smiley: Symbol = Must be Owner
-
-
 
 ## Authentication
 
@@ -20,7 +18,7 @@ Authencation is done through HTTP Token Authentican. Each User will be provided 
 
 ### To Register/Create a User
 
-`POST https://quizzlybear-api.herokuapp.com/api/users`
+`POST /users`
 
 The request body should be:
 
@@ -35,23 +33,23 @@ The response will be:
 
 ```json
 {
-    "id": 1,
-    "username": "leonard",
-    "password_digest": "$2a$10$BEPit8C9jY1ARw7XVhfrnuvgFkHSssKUdB8Y0.6lZYgee/p8JVvwC",
-    "token": "h7kU757fJ2rGJDrgubbG3zEu",
-    "admin": false,
-    "created_at": "2018-09-22T13:45:09.108Z",
-    "updated_at": "2018-09-22T13:45:09.108Z"
+  "id": 1,
+  "username": "leonard",
+  "password_digest": "$2a$10$BEPit8C9jY1ARw7XVhfrnuvgFkHSssKUdB8Y0.6lZYgee/p8JVvwC",
+  "token": "h7kU757fJ2rGJDrgubbG3zEu",
+  "admin": false,
+  "created_at": "2018-09-22T13:45:09.108Z",
+  "updated_at": "2018-09-22T13:45:09.108Z"
 }
 ```
 
 ### To delete a specific user :lock: :smiley:
 
-`DELETE https://quizzlybear-api.com/api/users/:id`
+`DELETE /users/:id`
 
 ### To Login
 
-`POST https://quizzlybear-api.herokuapp.com/api/login`
+`POST /login`
 
 The request body should be:
 
@@ -66,13 +64,14 @@ The response will be:
 
 ```json
 {
-    "token": "h7kU757fJ2rGJDrgubbG3zEu"
+  "token": "h7kU757fJ2rGJDrgubbG3zEu",
+  "admin": false
 }
 ```
 
 ### To modify a User :lock: :smiley:
 
-`PATCH/PUT https://quizzlybear-api.herokuapp.com/api/user/:id`
+`PATCH/PUT /user/:id`
 
 The request body should be:
 
@@ -87,203 +86,208 @@ The response will be:
 
 ```json
 {
-    "links": {
-        "self": "https://quizzlybear-api.com/api/users/4"
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/users/4"
+  },
+  "data": {
+    "id": 4,
+    "attributes": {
+      "username": "Changed Name",
+      "quizzes": 0
     },
-    "data": {
-        "id": 4,
-        "attributes": {
-            "username": "Changed Name",
-            "quizzes": 0
-        },
-        "relationships": {
-            "quizzes": [],
-            "scores": []
-        }
+    "relationships": {
+      "quizzes": [],
+      "scores": []
     }
+  }
 }
 ```
 
 ### To get a specific user with quizzes owned and scores for quizzes taken :lock:
 
-`GET https://quizzlybear-api.herokuapp.com/api/users/:id`
+`GET /users/:id`
 
 The response will be:
 
 ```json
 {
-    "links": {
-        "self": "https://quizzlybear-api.com/api/users/4"
-    },
-    "data": {
-        "id": 4,
-        "attributes": {
-            "username": "Steve Test 2",
-            "quizzes": 2,
-            "scores": 2
-        }
-    },
-    "relationships": {
-        "quizzes": [
-            {
-                "data": {
-                    "id": 1,
-                    "title": "JavaScript arrays"
-                },
-                "links": {
-                    "self": "/api/quizzes/1"
-                }
-            },
-            {
-                "data": {
-                    "id": 2,
-                    "title": "Rails models"
-                },
-                "links": {
-                    "self": "/api/quizzes/2"
-                }
-            }
-        ],
-        "scores": [
-            {
-                "data": {
-                    "id": 1,
-                    "quiz_id": 1,
-                    "number_correct": 7,
-                    "number_asked": 10
-                }
-            },
-            {
-                "data": {
-                    "id": 2,
-                    "quiz_id": 2,
-                    "number_correct": 4,
-                    "number_asked": 5
-                }
-            }
-        ]
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/users/4"
+  },
+  "data": {
+    "id": 4,
+    "attributes": {
+      "username": "Steve Test 2",
+      "quizzes": 2,
+      "scores": 2
     }
+  },
+  "relationships": {
+    "quizzes": [
+      {
+        "data": {
+          "id": 1,
+          "title": "JavaScript arrays"
+        },
+        "links": {
+          "self": "/api/quizzes/1"
+        }
+      },
+      {
+        "data": {
+          "id": 2,
+          "title": "Rails models"
+        },
+        "links": {
+          "self": "/api/quizzes/2"
+        }
+      }
+    ],
+    "scores": [
+      {
+        "data": {
+          "id": 1,
+          "quiz_id": 1,
+          "number_correct": 7,
+          "number_asked": 10
+        }
+      },
+      {
+        "data": {
+          "id": 2,
+          "quiz_id": 2,
+          "number_correct": 4,
+          "number_asked": 5
+        }
+      }
+    ]
+  }
 }
 ```
 
 ### To get all user records :lock:
 
-`GET https://quizzlybear-api.herokuapp.com/api/users`
+`GET /users`
 
 The response will be:
 
 ```json
- {
-        "id": 1,
-        "username": "leonard"
-    },
-    {
-        "id": 2,
-        "username": "admin"
-}
+[
+  {
+    "id": 1,
+    "username": "leonard"
+  },
+  {
+    "id": 2,
+    "username": "admin"
+  }
+]
 ```
 
 ### To get the current user profile :lock:
 
-`GET https://quizzlybear-api.com/api/profile`
+`GET /profile`
 
 The response will be:
 
 ```json
 {
-    "links": {
-        "self": "https://quizzlybear-api.com/api/users/1",
-        "list": "https://quizzlybear-api.com/api/users",
-        "update": {
-            "method": "PUT",
-            "href": "https://quizzlybear-api.com/api/users/1"
-        },
-        "delete": {
-            "method": "DELETE",
-            "href": "https://quizzlybear-api.com/api/users/1"
-        }
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/users/1",
+    "list": "https://quizzlybear-api.herokuapp.com/api/users",
+    "update": {
+      "method": "PUT",
+      "href": "https://quizzlybear-api.herokuapp.com/api/users/1"
     },
-    "data": {
-        "id": 1,
-        "attributes": {
-            "username": "leonard",
-            "token": "6nF2X9W4mBxznsSh7qPFaRNg"
-        }
+    "delete": {
+      "method": "DELETE",
+      "href": "https://quizzlybear-api.herokuapp.com/api/users/1"
     }
+  },
+  "data": {
+    "id": 1,
+    "attributes": {
+      "username": "leonard",
+      "token": "6nF2X9W4mBxznsSh7qPFaRNg"
+    }
+  }
 }
 ```
 
 ### To get the current user admin profile :lock: :a:
 
-`GET https://quizzlybear-api.com/api/admin_profile`
+`GET /admin_profile`
 
 The response will be:
 
 ```json
 {
-    "links": {
-        "self": "https://quizzlybear-api.com/api/users/2",
-        "list": "https://quizzlybear-api.com/api/users",
-        "update": {
-            "method": "PUT",
-            "href": "https://quizzlybear-api.com/api/users/2"
-        },
-        "delete": {
-            "method": "DELETE",
-            "href": "https://quizzlybear-api.com/api/users/2"
-        }
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/users/2",
+    "list": "https://quizzlybear-api.herokuapp.com/api/users",
+    "update": {
+      "method": "PUT",
+      "href": "https://quizzlybear-api.herokuapp.com/api/users/2"
     },
-    "data": {
-        "id": 2,
-        "attributes": {
-            "username": "admin",
-            "token": "j7UYR4HjnoLTQG85hBUp3tPM",
-            "admin": true
-        }
+    "delete": {
+      "method": "DELETE",
+      "href": "https://quizzlybear-api.herokuapp.com/api/users/2"
     }
+  },
+  "data": {
+    "id": 2,
+    "attributes": {
+      "username": "admin",
+      "token": "j7UYR4HjnoLTQG85hBUp3tPM",
+      "admin": true
+    }
+  }
 }
 ```
 
-### To get the current users Published Quizzes :lock: :a: 
+### To get the current users Published Quizzes :lock: :a:
 
-`GET https://quizzlybear-api.com//api/users/:user_id/published_quizzes`
+`GET /users/:user_id/published_quizzes`
 
 The response will be:
 
 ```json
-{
-        "id": 1,
-        "title": "JavaScript arrays"
-    },
-    {
-        "id": 2,
-        "title": "Rails models"
-}
+[
+  {
+    "id": 1,
+    "title": "JavaScript arrays"
+  },
+  {
+    "id": 2,
+    "title": "Rails models"
+  }
+]
 ```
 
-### To get the current users Unpublished Quizzes :lock: :a: 
+### To get the current users Unpublished Quizzes :lock: :a:
 
-`GET https://quizzlybear-api.com//api/users/:user_id/unpublished_quizzes`
+`GET /users/:user_id/unpublished_quizzes`
 
 The response will be:
 
 ```json
-{
-        "id": 3,
-        "title": "Unpublished Quiz"
-    },
-    {
-        "id": 4,
-        "title": "Unpublished Quiz 1"
-}
+[
+  {
+    "id": 3,
+    "title": "Unpublished Quiz"
+  },
+  {
+    "id": 4,
+    "title": "Unpublished Quiz 1"
+  }
+]
 ```
-
 
 ## Quiz Options
 
 ### Create a new quiz :lock: :a:
 
-`POST https://quizzlybear-api.com/api/quizzes`
+`POST /quizzes`
 
 The request body should be:
 
@@ -297,31 +301,31 @@ The response will be:
 
 ```json
 {
-    "links": {
-        "self": "https://quizzlybear-api.com/api/quizzes/5"
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/quizzes/5"
+  },
+  "data": {
+    "id": 5,
+    "attributes": {
+      "title": "Quiz Name",
+      "published": false
     },
-    "data": {
-        "id": 5,
-        "attributes": {
-            "title": "Quiz Name",
-            "published": false
-        },
-        "relationships": {
-            "questions": []
-        }
+    "relationships": {
+      "questions": []
     }
+  }
 }
 ```
 
 ### Create aquestion for a quiz :lock: :smiley: :a:
 
-`POST https://quizzlybear-api.com/api/quizzes/:quiz_id/questions`
+`POST /quizzes/:quiz_id/questions`
 
 The request body should be:
 
 ```json
 {
-	"text": "Test question"
+  "text": "Test question"
 }
 ```
 
@@ -329,210 +333,211 @@ The response will be:
 
 ```json
 {
-    "links": {
-        "self": "http://localhost:3000/api/quizzes/4/questions/10"
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/quizzes/4/questions/10"
+  },
+  "data": {
+    "id": 10,
+    "attributes": {
+      "text": "Test question"
     },
-    "data": {
-        "id": 10,
-        "attributes": {
-            "text": "Test question"
-        },
-        "relationships": {
-            "answers": []
-        }
+    "relationships": {
+      "answers": []
     }
+  }
 }
 ```
 
 ### Create an answer for a question :lock: :smiley: :a:
 
-`POST https://quizzlybear-api.com/api/quizzes/:quiz_id/questions/question_id/answers`
+`POST /quizzes/:quiz_id/questions/question_id/answers`
 
+### Mark a quiz as Published
 
-
-
-### Mark a quiz as Published 
-
-`POST "https://quizzlybear-api.com/api/quizzes/:quiz_id/publish"`
+`POST /quizzes/:quiz_id/publish`
 
 The reponse will be:
 
 ```json
 {
-    "links": {
-        "self": "https://quizzlybear-api.com/api/quizzes/2"
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/quizzes/2"
+  },
+  "data": {
+    "id": 2,
+    "attributes": {
+      "title": "Rails models",
+      "published": true
     },
-    "data": {
-        "id": 2,
-        "attributes": {
-            "title": "Rails models",
-            "published": true
+    "relationships": {
+      "questions": [
+        {
+          "data": {
+            "id": 4,
+            "text": "Given a table `posts` and another table `comments` with the field `post_id`, which of the following associations would you use to connect the tables?",
+            "number": 1
+          },
+          "links": {
+            "self": "https://quizzlybear-api.herokuapp.com/api/quizzes/2/questions/4"
+          }
         },
-        "relationships": {
-            "questions": [
-                {
-                    "data": {
-                        "id": 4,
-                        "text": "Given a table `posts` and another table `comments` with the field `post_id`, which of the following associations would you use to connect the tables?",
-                        "number": 1
-                    },
-                    "links": {
-                        "self": "https://quizzlybear-api.com/api/quizzes/2/questions/4"
-                    }
-                },
-                {
-                    "data": {
-                        "id": 5,
-                        "text": "Which of the following is a built-in Rails validation?",
-                        "number": 2
-                    },
-                    "links": {
-                        "self": "https://quizzlybear-api.com/api/quizzes/2/questions/5"
-                    }
-                },
-                {
-                    "data": {
-                        "id": 6,
-                        "text": "Which of the following is **not** a database you can use with ActiveRecord?",
-                        "number": 3
-                    },
-                    "links": {
-                        "self": "https://quizzlybear-api.com/api/quizzes/2/questions/6"
-                    }
-                }
-            ]
+        {
+          "data": {
+            "id": 5,
+            "text": "Which of the following is a built-in Rails validation?",
+            "number": 2
+          },
+          "links": {
+            "self": "https://quizzlybear-api.herokuapp.com/api/quizzes/2/questions/5"
+          }
+        },
+        {
+          "data": {
+            "id": 6,
+            "text": "Which of the following is **not** a database you can use with ActiveRecord?",
+            "number": 3
+          },
+          "links": {
+            "self": "https://quizzlybear-api.herokuapp.com/api/quizzes/2/questions/6"
+          }
         }
+      ]
     }
+  }
 }
 ```
 
 ### Get the currently published quizzes
 
-`GET https://quizzlybear-api.com/api/quizzes`
+`GET /quizzes`
 
 The response will be:
 
 ```json
-{
-        "id": 2,
-        "title": "Rails models",
-        "questions": 3
-    },
-    {
-        "id": 1,
-        "title": "JavaScript arrays",
-        "questions": 3
-}
+[
+  {
+    "id": 2,
+    "title": "Rails models",
+    "questions": 3
+  },
+  {
+    "id": 1,
+    "title": "JavaScript arrays",
+    "questions": 3
+  }
+]
 ```
 
 ### Get a specific quiz with questions :lock: :a:
 
-`GET https://quizzlybear-api.com/api/quizzes/:id`
+`GET /quizzes/:id`
 
 The response will be:
 
 ```json
 {
-    "links": {
-        "self": "https://quizzlybear-api.com/api/quizzes/1"
+  "links": {
+    "self": "https://quizzlybear-api.herokuapp.com/api/quizzes/1"
+  },
+  "data": {
+    "id": 1,
+    "attributes": {
+      "title": "JavaScript arrays",
+      "published": true
     },
-    "data": {
-        "id": 1,
-        "attributes": {
-            "title": "JavaScript arrays",
-            "published": true
+    "relationships": {
+      "questions": [
+        {
+          "data": {
+            "id": 1,
+            "text": "What method do you use to get all records that match a condition?",
+            "number": null
+          },
+          "links": {
+            "self": "http://quizzlybear-api.com/api/quizzes/1/questions/1"
+          }
         },
-        "relationships": {
-            "questions": [
-                {
-                    "data": {
-                        "id": 1,
-                        "text": "What method do you use to get all records that match a condition?",
-                        "number": null
-                    },
-                    "links": {
-                        "self": "http://quizzlybear-api.com/api/quizzes/1/questions/1"
-                    }
-                },
-                {
-                    "data": {
-                        "id": 2,
-                        "text": "What does `findIndex` return if no records match its condition?",
-                        "number": null
-                    },
-                    "links": {
-                        "self": "http://quizzlybear-api.com/api/quizzes/1/questions/2"
-                    }
-                },
-                {
-                    "data": {
-                        "id": 3,
-                        "text": "Which of the following does the method `map` do?",
-                        "number": null
-                    },
-                    "links": {
-                        "self": "http://quizzlybear-api.com/api/quizzes/1/questions/3"
-                    }
-                }
-            ]
+        {
+          "data": {
+            "id": 2,
+            "text": "What does `findIndex` return if no records match its condition?",
+            "number": null
+          },
+          "links": {
+            "self": "http://quizzlybear-api.com/api/quizzes/1/questions/2"
+          }
+        },
+        {
+          "data": {
+            "id": 3,
+            "text": "Which of the following does the method `map` do?",
+            "number": null
+          },
+          "links": {
+            "self": "http://quizzlybear-api.com/api/quizzes/1/questions/3"
+          }
         }
+      ]
     }
+  }
 }
 ```
 
-### Get all answers for a question :lock: 
+### Get all answers for a question :lock:
 
-`GET https://quizzlybear-api.com/api/quizzes/:quiz_id/questions/:question_id/answers`
+`GET /quizzes/:quiz_id/questions/:question_id/answers`
+
+The response will be:
+
+```json
+[
+  {
+    "id": 1,
+    "text": "find",
+    "correct": false
+  },
+  {
+    "id": 2,
+    "text": "findAll",
+    "correct": false
+  },
+  {
+    "id": 3,
+    "text": "filter",
+    "correct": true
+  },
+  {
+    "id": 4,
+    "text": "reduce",
+    "correct": false
+  }
+]
+```
+
+### Get a specific answer for a question :lock:
+
+`GET /quizzes/:quiz_id/questions/:question_id/answers/:answer_id`
 
 The response will be:
 
 ```json
 {
-        "id": 1,
-        "text": "find",
-        "correct": false
-    },
-    {
-        "id": 2,
-        "text": "findAll",
-        "correct": false
-    },
-    {
-        "id": 3,
-        "text": "filter",
-        "correct": true
-    },
-    {
-        "id": 4,
-        "text": "reduce",
-        "correct": false
+  "data": {
+    "id": 2,
+    "attributes": {
+      "text": "findAll",
+      "correct": false
     }
-```
-
-### Get a specific answer for a question :lock: 
-
-`GET https://quizzlybear-api.com/api/quizzes/:quiz_id/questions/:question_id/answers/:answer_id`
-
-The response will be:
-
-```json
-{
-    "data": {
-        "id": 2,
-        "attributes": {
-            "text": "findAll",
-            "correct": false
-        }
-    }
+  }
 }
 ```
-### Select an answer for a question :lock: 
 
-`POST https://quizzlybear-api.com//api/quizzes/:quiz_id/questions/:question_id/responses`
+### Select an answer for a question :lock:
+
+`POST /quizzes/:quiz_id/questions/:question_id/responses`
 
 The request body should be:
 
 ```json
 
 ```
-

@@ -16,14 +16,9 @@ class Login extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.register = this.register.bind(this)
-    this.setUser = this.setUser.bind(this)
-  }
-  setUser (e) {
-    e.preventDefault()
-    this.handleSubmit(e)
-    this.props.setUserToken(e)
   }
   handleSubmit (e) {
+    console.log(this.props.setCurrentUser, 'this.props')
     e.preventDefault()
     const { username, password } = this.state
     let { setCurrentUser } = this.props
@@ -42,7 +37,7 @@ class Login extends Component {
   render () {
     const { username, password, errMsg } = this.state
     if (this.state.registering) {
-      return (<Register setUser={this.setUser} register={this.register} />
+      return (<Register setCurrentUser={this.props.setCurrentUser} register={this.register} />
       )
     } else {
       return (
@@ -61,7 +56,7 @@ class Login extends Component {
           <Input className='username' value={username} onChange={(e) => this.setState({username: e.target.value})} />
           <Label>Password</Label>
           <Input className='username' value={password} type='password' onChange={e => this.setState({password: e.target.value})} />
-          <Button className='is-primary' onClick={(e) => this.setUser(e)}>Login</Button>
+          <Button className='is-primary' onClick={(e) => this.handleSubmit(e)}>Login</Button>
         </Card>
       )
     }

@@ -1,4 +1,4 @@
-import request from 'superagent'
+import request from 'superagent/superagent.js'
 
 let apiDomain = 'https://quizzlybear-api.herokuapp.com/api'
 
@@ -16,7 +16,7 @@ const apiCalls = {
         return { username, token }
       })
       .catch(err => {
-        if (err.response.statusCode === 401) {
+        if (err.response.statusCode === 422) {
           throw new Error('You must provide a username and password')
         } else if (err.response.statusCode === 422) {
           throw new Error('There is no user with that username and password')

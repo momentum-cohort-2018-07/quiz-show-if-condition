@@ -26,16 +26,16 @@ class App extends Component {
     }
   }
   setCurrentUser (user) {
-    console.log(this.state.currentUser, 'current user')
     window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', user.token)
     this.setState({ currentUser: user })
+    console.log(this.state.currentUser, 'current user')
   }
   setUserToken (e) {
     apiCalls.getUserToken()
   }
   onLogout () {
-    this.setState({currentUser: false})
+    this.setState({ currentUser: false })
   }
 
   render () {

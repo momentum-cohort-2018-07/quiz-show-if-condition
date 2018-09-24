@@ -1,0 +1,11 @@
+
+
+•	App.js (will have state: current user). Methods (Set user, render, logout)
+  o Dashboard state (quizzes:[], published: true, active: False) methods (adding quiz, editing quiz,     publishing quiz)
+    	Active: state () methods (render) props (question)
+    	QuizBtn: state() Methods(get questions, render) props (quiz)
+    	Unpublished: state (creatingQuiz, Quiz title) methods (publishQuiz, Edit Quiz,) props (creatingQuestions)
+      •	addQuestion: state (Answer Choice) methods (handle change, submitAnswerChoice) props(creatingQuiz)
+        o	Login: state(username, password, registering: false) methods(handleChange, handleSubmit, register, setUser) 
+    	Register: state (username, password) Methods(handle submit, handle change) props(state)
+  o	SideBar: props(currentUser, logout)

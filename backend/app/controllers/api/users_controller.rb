@@ -15,6 +15,7 @@ class API::UsersController < ApplicationController
   end
 
   def admin_profile
+    @user = current_user
   end
 
   def create

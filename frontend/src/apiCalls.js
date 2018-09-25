@@ -72,6 +72,26 @@ const apiCalls = {
         return response.body
       }))
   },
+  getNextQuestion: (questionURL) => {
+    // console.log(`https://quizzlybear-api.herokuapp.com/${questionURL}`)
+    return (request.get(`https://quizzlybear-api.herokuapp.com/${questionURL}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        return response.body
+      }))
+  },
+  submitAnswer: (answerID, quizID, questionID) => {
+    // console.log(answerID, 'answerID')
+    // console.log(quizID, 'quizID')
+    // console.log(questionID, 'questionID')
+    return (request.post(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/responses`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'answer_id': `${answerID}`
+      })
+      .then(response => {
+        return response.body
+      }))
+  },
   checkAdmin: (admin, token) => {
     if (admin === true) {
       apiCalls.getAdminProfile(token)
@@ -84,6 +104,7 @@ const apiCalls = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
         let quiz = response.body.data
+        console.log(response.body, 'next submit answer')
         return (quiz)
       }))
   },

@@ -5,7 +5,7 @@ import 'bulma/css/bulma.css'
 import Login from './Login'
 import Sidebar from './Sidebar'
 import apiCalls from '../apiCalls'
-import Dashboard from './QuizList'
+import QuizList from './QuizList'
 
 class Homepage extends Component {
   constructor () {
@@ -17,32 +17,31 @@ class Homepage extends Component {
   setUserToken (e) {
     apiCalls.getUserToken()
   }
-  render(){
-      const { currentUser } = this.state
-  
-      if (this.state.currentUser) {
-        return (
-          <div className='App'>
-            <Sidebar onLogout={this.props.onLogout} currentUser={currentUser} />
-            <main className='main'>
-              <div className='board'>
-                <Dashboard setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
-              </div>
-            </main>
-          </div>
-        )
-      }
+  render () {
+    const { currentUser } = this.state
+
+    if (this.state.currentUser) {
       return (
         <div className='App'>
-          <Sidebar />
+          <Sidebar onLogout={this.props.onLogout} currentUser={currentUser} />
           <main className='main'>
             <div className='board'>
-              <Login setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
+              <QuizList setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
             </div>
           </main>
         </div>
       )
     }
+    return (
+      <div className='App'>
+        <Sidebar />
+        <main className='main'>
+          <div className='board'>
+            <Login setUserToken={this.setUserToken} setCurrentUser={this.setCurrentUser} />
+          </div>
+        </main>
+      </div>
+    )
   }
 }
 

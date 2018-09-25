@@ -14,6 +14,7 @@ import Register from './components/Register'
 import Sidebar from './components/Sidebar'
 import apiCalls from './apiCalls'
 import QuizList from './components/QuizList'
+import Answers from './components/Answer'
 
 class App extends Component {
   constructor () {
@@ -35,7 +36,6 @@ class App extends Component {
     window.localStorage.setItem('username', user.username)
     window.localStorage.setItem('token', user.token)
     this.setState({ currentUser: user })
-    console.log(this.state.currentUser, 'current user')
   }
   onLogout () {
     window.localStorage.removeItem('username')
@@ -56,15 +56,20 @@ class App extends Component {
                   <QuizList setUserToken={this.setUserToken} onLogout={this.onLogout} setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
 
-              <Route path='/quiz/:id' render={({ match }) =>
+              <Route exact path='/quiz/:id' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
                   <Quiz id={match.params.id} />
                 </Guard>} />
 
-              <Route path='/question/:id' render={({ match }) =>
+              <Route exact path='/quiz/:quizId/question/:id/' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
                   <Question id={match.params.id} />
                 </Guard>} />
+
+              {<Route path='/quiz/:quizid/question/:id/answers' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/login'>
+                  <Answers id={match.params.id} />
+                </Guard>} /> }
 
               <Route path='/register' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>

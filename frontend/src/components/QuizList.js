@@ -27,7 +27,7 @@ class QuizList extends Component {
   render () {
     if (this.state.quizzes.length > 0) {
       return (<div>
-        {console.log(this.state.quizzes, 'state quizzes')}
+        {/* {console.log(this.state.quizzes, 'state quizzes')} */}
         {this.state.quizzes.map((quiz) => <QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} />)}
       </div>)
     } else {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Label, Input, Notification } from 'bloomer'
+import { Label, Input, Notification } from 'bloomer'
 import Card from './Card'
 
 import Register from './Register'
@@ -48,11 +48,6 @@ class Login extends Component {
           &nbsp;|&nbsp;
             <NavLink to='/register'>Register</NavLink>
           </div>
-          {/* <div className='has-text-centered'>
-            <a > Login</a>
-            &nbsp;|&nbsp;
-            <a onClick={e => this.register(e, true)}> Register</a>
-          </div> */}
           { errMsg &&
           <Notification isColor='danger'>
             {errMsg}

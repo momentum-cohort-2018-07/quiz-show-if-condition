@@ -43,11 +43,6 @@ class Register extends Component {
           &nbsp;|&nbsp;
           <NavLink to='/register'>Register</NavLink>
         </div>
-        {/* <div className='has-text-centered'>
-          <a onClick={e => this.props.register(e)}> Login</a>
-        &nbsp;|&nbsp;
-          <a onClick={e => this.register(e, false)}> Register</a>
-        </div> */}
         <div className='RegisterForm'>
           { errMsg &&
           <Notification isColor='danger'>

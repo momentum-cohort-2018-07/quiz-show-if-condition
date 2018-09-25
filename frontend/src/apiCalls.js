@@ -55,12 +55,19 @@ const apiCalls = {
       })
     )
   },
+  getAnswers: (quizID, questionID) => {
+    console.log(quizID, 'quizID in getAnswers')
+    return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/answers`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        return response.body
+      }))
+  },
   getQuestion: (quizID) => {
-    console.log(quizID, 'quizID in apicalls')
+    console.log(quizID, 'quizID in getQuestions')
     return (request.get(`${apiDomain}/quizzes/${quizID}/questions/1`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
-        console.log(response.body, 'question response')
         return response.body
       }))
   },
@@ -72,7 +79,7 @@ const apiCalls = {
     }
   },
   getQuiz: (quizID) => {
-    return (request.get(`${apiDomain}/quizzes/${quizID}.json`)
+    return (request.get(`${apiDomain}/quizzes/${quizID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
         let quiz = response.body.data

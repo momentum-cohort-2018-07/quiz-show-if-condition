@@ -13,10 +13,8 @@ class API::AnswersController < ApplicationController
       render json: {error: "Must own the quiz to add a new answer"}, status: :unprocessable_entity
     elsif @quiz.published?
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
-    elsif answer_params.key?(:correct) && answer_params[:correct]
-      if Answer.find_by(question_id: @question.id, correct: true)
-        render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
-      end
+    elsif answer_params.key?(:correct) && answer_params[:correct] && Answer.find_by(question_id: @question.id, correct: true)
+      render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
     else
       @answer = Answer.new(question_id: @question.id, text: answer_params[:text], correct: answer_params[:correct])
       if @answer.save
@@ -28,15 +26,13 @@ class API::AnswersController < ApplicationController
   end
 
   def update
+    @correct_answer = Answer.find_by(question_id: @question.id, correct: true)
     if current_user.id != @quiz.user.id
       render json: {error: "Must be the quiz owner to update a question"}
     elsif @quiz.published?
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
-    elsif answer_params.key?(:correct) && answer_params[:correct]
-      @correct_answer = Answer.find_by(question_id: @question.id, correct: true)
-      if @correct_answer && @correct_answer.id != @answer.id
-        render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
-      end
+    elsif answer_params.key?(:correct) && answer_params[:correct] && @correct_answer && @correct_answer.id != @answer.id
+      render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
     else
       if @answer.update(answer_params)
         render :show, status: :ok, location: api_quiz_question_answer_url(@quiz, @question, @answer)

@@ -5,7 +5,7 @@ import 'bulma/css/bulma.css'
 import Login from './Login'
 import Sidebar from './Sidebar'
 import apiCalls from '../apiCalls'
-import Dashboard from './Dashboard'
+import Dashboard from './QuizList'
 
 class Homepage extends Component {
   constructor () {

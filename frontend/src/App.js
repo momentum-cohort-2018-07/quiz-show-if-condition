@@ -8,11 +8,12 @@ import './index.css'
 import 'bulma/css/bulma.css'
 
 import Login from './components/Login'
-import QuizBtn from './components/QuizList'
+import Quiz from './components/Quiz'
+import Question from './components/Question'
 import Register from './components/Register'
 import Sidebar from './components/Sidebar'
 import apiCalls from './apiCalls'
-import Dashboard from './components/Dashboard'
+import QuizList from './components/QuizList'
 
 class App extends Component {
   constructor () {
@@ -52,18 +53,24 @@ class App extends Component {
             <div className='board'>
               <Route exact path='/' render={() =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
-                  <Dashboard setUserToken={this.setUserToken} onLogout={this.onLogout} setCurrentUser={this.setCurrentUser} />
+                  <QuizList setUserToken={this.setUserToken} onLogout={this.onLogout} setCurrentUser={this.setCurrentUser} />
                 </Guard>} />
-              <Route path='/stacks/:id' render={({ match }) =>
+
+              <Route path='/quiz/:id' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
-                  <QuizBtn id={match.params.id} />
-                </Guard>
-              } />
+                  <Quiz id={match.params.id} />
+                </Guard>} />
+
+              <Route path='/question/:id' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='/login'>
+                  <Question id={match.params.id} />
+                </Guard>} />
+
               <Route path='/register' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
                   <Register setCurrentUser={this.setCurrentUser} />
-                </Guard>}
-              />
+                </Guard>} />
+
               <Route path='/login' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
                   <Login setCurrentUser={this.setCurrentUser} />

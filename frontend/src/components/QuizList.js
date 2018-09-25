@@ -1,43 +1,39 @@
 import React, { Component } from 'react'
 import apiCalls from '../apiCalls'
-import Question from './Question'
+import QuizListItem from './QuizListItem'
+// import Active from './Active'
 
 class QuizList extends Component {
-  constructor (props) {
-    super(props)
+  constructor () {
+    super()
     this.state = {
-      questions: [],
-      activeQuestion: this.props
+      quizzes: [],
+      published: true,
+      activeQuiz: false
     }
     this.makeActive = this.makeActive.bind(this)
   }
-
-  // getQuestion (e, quizID) {
-  //   e.preventDefault()
-  //   console.log(this.props.makeActive(quizID), 'make active')
-  // }
-  makeActive (e, quizID) {
-    e.preventDefault()
-    this.props.makeActive()
-    apiCalls.getQuestions(quizID).then(questions => {
-      this.setState({ questions })
+  componentDidMount () {
+    this.getQuizzes()
+  }
+  getQuizzes () {
+    apiCalls.getQuizzes().then(quizzes => {
+      this.setState({ quizzes })
     })
   }
+  makeActive () {
+    this.setState({ active: true })
+  }
   render () {
-    let { quiz } = this.props
-    console.log(this.state.activeQuestion, 'state active question')
-    if (this.props.activeQuestion) {
+    if (this.state.quizzes.length > 0) {
       return (<div>
-        {this.state.questions.map((question) => <Question key={question.data.id} question={question.data} />)}
+        {console.log(this.state.quizzes, 'state quizzes')}
+        {this.state.quizzes.map((quiz) => <QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} />)}
       </div>)
     } else {
-      return (
-        <div className='quiz-node' onClick={e => { this.makeActive(e, quiz.id) }}>
-          <div key={quiz.id}>{quiz.title}</div>
-          <div>Quiz </div>
-        </div>
-      )
+      return ('')
     }
   }
 }
+
 export default QuizList

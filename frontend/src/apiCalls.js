@@ -66,13 +66,13 @@ const apiCalls = {
       apiCalls.getUserProfile(token)
     }
   },
-  getQuestions: (quizID) => {
+  getQuiz: (quizID) => {
     return (request.get(`${apiDomain}/quizzes/${quizID}.json`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
-        let questions = response.body.data.relationships.questions
-        console.log(questions, 'questions')
-        return (questions)
+        let quiz = response.body.data
+        console.log(response.body.data, 'response.body.data')
+        return (quiz)
       }))
   },
   getUserProfile: (token) => {

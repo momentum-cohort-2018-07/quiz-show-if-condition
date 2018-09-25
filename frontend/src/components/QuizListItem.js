@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 // import apiCalls from '../apiCalls'
 import { NavLink } from 'react-router-dom'
-import Quiz from './Quiz'
+// import Quiz from './Quiz'
 
 class QuizListItem extends Component {
   render () {
     let { quiz } = this.props
-    console.log(quiz.id, 'quiz in QuisListItem comp.')
+    // console.log(quiz.id, 'quiz in QuisListItem comp.')
     return (
       <div className='quiz-node'>
         <NavLink to={`/quiz/${quiz.id}`}>{quiz.title}</NavLink>

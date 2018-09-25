@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import apiCalls from '../apiCalls'
 import QuizListItem from './QuizListItem'
+import Card from './Card'
+import { Title } from 'bloomer'
 // import Active from './Active'
 
 class QuizList extends Component {
@@ -28,7 +30,7 @@ class QuizList extends Component {
     if (this.state.quizzes.length > 0) {
       return (<div>
         {/* {console.log(this.state.quizzes, 'state quizzes')} */}
-        {this.state.quizzes.map((quiz) => <QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} />)}
+        {this.state.quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
       </div>)
     } else {
       return ('')

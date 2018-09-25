@@ -56,7 +56,7 @@ const apiCalls = {
     )
   },
   getAnswers: (quizID, questionID) => {
-    console.log(quizID, 'quizID in getAnswers')
+    console.log(questionID, 'quizID in getAnswers')
     return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/answers`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {

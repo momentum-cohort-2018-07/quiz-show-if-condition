@@ -12,10 +12,10 @@ class Question extends Component {
     }
   }
   componentDidMount () {
-    let quizID = this.props.quizID
+    let quizID = this.props.id
     // console.log(quizID, 'in question component')
-    let questionID = this.props.questionID
-    // console.log(questionID, 'questionID in question component')
+    let questionID = this.props
+    console.log(this.props.id, 'questionID in question component')
     this.getQuestion(quizID)
     this.getAnswers(quizID, questionID)
   }

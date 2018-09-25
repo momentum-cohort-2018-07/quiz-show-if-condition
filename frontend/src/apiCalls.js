@@ -56,16 +56,17 @@ const apiCalls = {
     )
   },
   getAnswers: (quizID, questionID) => {
-    console.log(questionID, 'quizID in getAnswers')
+    console.log(quizID, 'quizID in getAnswers')
     return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/answers`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
         return response.body
       }))
   },
-  getQuestion: (quizID) => {
+  getQuestion: (quizID, questionID) => {
     console.log(quizID, 'quizID in getQuestions')
-    return (request.get(`${apiDomain}/quizzes/${quizID}/questions/1`)
+    console.log(questionID, 'questionID in getQuestions')
+    return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
         return response.body

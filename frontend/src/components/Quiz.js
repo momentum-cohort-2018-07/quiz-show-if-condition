@@ -29,10 +29,11 @@ class Quiz extends Component {
       let quizID = this.props.id
       let questions = quiz.relationships.questions
       // console.log(questions, 'question variable in Quiz')
+      console.log(quiz)
       return (
         <Card>
           <Title><div>{quiz.attributes.title}</div></Title>
-          <Button className='is-primary'><NavLink to={`/quiz/${quizID}/question/${questions[0].data.id}`} >Start</NavLink></Button>
+          <Button className='is-primary'><NavLink to={`/quiz/${quizID}/question/${quiz.relationships.data.attributes.number}`} >Start</NavLink></Button>
         </Card>)
     } else {
       return ('')

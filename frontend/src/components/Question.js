@@ -12,16 +12,17 @@ class Question extends Component {
     }
   }
   componentDidMount () {
-    let quizID = this.props.id
-    // console.log(quizID, 'in question component')
-    let questionID = this.props
-    console.log(this.props.id, 'questionID in question component')
-    this.getQuestion(quizID)
+    let quizID = this.props.quizId
+    let questionID = this.props.id
+
+    console.log(quizID, 'in question component')
+    console.log(questionID, 'questionID in question component')
+    this.getQuestion(quizID, questionID)
     this.getAnswers(quizID, questionID)
   }
-  getQuestion (quizID) {
+  getQuestion (quizID, questionID) {
     console.log(quizID, 'quizID in Question Comp.')
-    apiCalls.getQuestion(quizID).then(question => {
+    apiCalls.getQuestion(quizID, questionID).then(question => {
       this.setState({ question })
     })
   }

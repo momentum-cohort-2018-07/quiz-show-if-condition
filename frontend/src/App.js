@@ -63,7 +63,7 @@ class App extends Component {
 
               <Route exact path='/quiz/:quizId/question/:id/' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
-                  <Question id={match.params.id} />
+                  <Question quizId={match.params.quizId} id={match.params.id} />
                 </Guard>} />
 
               {<Route path='/quiz/:quizid/question/:id/answers' render={({ match }) =>

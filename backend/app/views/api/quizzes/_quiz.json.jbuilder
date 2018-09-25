@@ -1,5 +1,5 @@
 json.links do
-  json.self api_quiz_url(quiz)
+  json.self api_quiz_path(quiz)
 end
 json.data do
   json.id quiz.id

@@ -1,7 +1,7 @@
 class API::ResponsesController < ApplicationController
   def create
     @quiz = Quiz.find(params[:quiz_id])
-    @question = Question.find_by(quiz_id: @quiz.id, number: params[:question_id])
+    @question = Question.find_by(quiz_id: @quiz.id, number: params[:question_id]) || Question.find_by(quiz_id: @quiz.id, id: params[:question_id])
     @correct_answer = Answer.find_by(question_id: @question.id, correct: true)
     @submitted_answer = Answer.find_by(question_id: @question.id, id: answer_params[:answer_id])
     @previous_response = Response.find_by(user_id: current_user.id, quiz_id: @quiz.id, question_id: @question.id)

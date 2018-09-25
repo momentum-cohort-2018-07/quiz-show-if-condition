@@ -6,6 +6,7 @@ json.links do
     else
       json.score api_quiz_score_path(question.quiz)
     end
+    json.response api_quiz_question_responses_path(question.quiz, question.number)
   else
     json.self api_quiz_question_path(question.quiz, question.id)
   end

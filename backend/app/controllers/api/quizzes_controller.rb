@@ -17,9 +17,9 @@ class API::QuizzesController < ApplicationController
   end
 
   def show
-    if @quiz.published?
-      @question_number = Response.where(user_id: current_user.id, quiz_id: @quiz.id).count + 1
-      @question = Question.find_by!(quiz_id: @quiz.id, number:@question_number)
+    if @quiz.published? 
+      @question_number = Response.where(user_id: current_user.id, quiz_id: @quiz.id).left_outer_joins(:question).maximum(:number) || 0 + 1
+      @question = Question.find_by(quiz_id: @quiz.id, number:@question_number)
     else
       @question = Question.where(quiz_id:@quiz.id).first
     end

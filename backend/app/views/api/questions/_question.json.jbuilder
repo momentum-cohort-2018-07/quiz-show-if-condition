@@ -3,6 +3,8 @@ json.links do
     json.self api_quiz_question_path(question.quiz, question.number)
     if question.number < question.quiz.questions.count
       json.next api_quiz_question_path(question.quiz, question.number + 1)
+    else
+      json.score api_quiz_score_path(question.quiz)
     end
   else
     json.self api_quiz_question_path(question.quiz, question.id)

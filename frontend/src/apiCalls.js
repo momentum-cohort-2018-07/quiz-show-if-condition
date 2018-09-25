@@ -17,7 +17,6 @@ const apiCalls = {
       })
       .catch(err => {
         if (err.response.statusCode === 401) {
-          console.log(err.response, 'response')
           throw new Error(err.response.body.error)
         }
       })
@@ -34,12 +33,9 @@ const apiCalls = {
         return { username, token }
       }))
       .catch((err) => {
-        console.log(err)
         if (err.response.statusCode === 422) {
           let passwordErr = err.response.body.password
-          console.log(passwordErr)
           let usernameErr = err.response.body.username
-          console.log(usernameErr)
           let newArray = passwordErr.concat(usernameErr)
           throw new Error(newArray)
         }
@@ -59,6 +55,15 @@ const apiCalls = {
       })
     )
   },
+  getQuestion: (quizID) => {
+    console.log(quizID, 'quizID in apicalls')
+    return (request.get(`${apiDomain}/quizzes/${quizID}/questions/1`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        console.log(response.body, 'question response')
+        return response.body
+      }))
+  },
   checkAdmin: (admin, token) => {
     if (admin === true) {
       apiCalls.getAdminProfile(token)
@@ -71,7 +76,6 @@ const apiCalls = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
         let quiz = response.body.data
-        console.log(response.body.data, 'response.body.data')
         return (quiz)
       }))
   },

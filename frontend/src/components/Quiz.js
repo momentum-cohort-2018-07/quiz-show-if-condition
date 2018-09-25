@@ -13,12 +13,11 @@ class Quiz extends Component {
   }
   getQuiz (quizID) {
     apiCalls.getQuiz(quizID).then(quiz => {
-      console.log(quiz, 'quiz')
       this.setState({ quiz })
+      console.log(quiz, 'look for quiz id')
     })
   }
   render () {
-    console.log(this.state, 'this.state')
     if (this.state.quiz) {
       let quiz = this.state.quiz
       let questions = quiz.relationships.questions

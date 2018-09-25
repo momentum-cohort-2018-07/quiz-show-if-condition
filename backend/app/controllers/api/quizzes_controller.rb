@@ -1,18 +1,18 @@
 class API::QuizzesController < ApplicationController
   skip_before_action :verify_authentication, only: [:index]
-  before_action :set_quiz, only: [:show, :update, :destroy]
+  before_action :set_quiz, only: [:show, :update, :destroy, :publish]
 
   def index
-    @quizzes = Quiz.where('published = ?', true)
+    @quizzes = Quiz.where(published: true)
   end
 
   def published_quizzes
-    @quizzes = Quiz.where({published: true, user_id: params[:user_id]})
+    @quizzes = Quiz.where(published: true, user_id: params[:user_id])
     render :index, location: api_quizzes_url
   end
 
   def unpublished_quizzes
-    @quizzes = Quiz.where({published: false, user_id: params[:user_id]})
+    @quizzes = Quiz.where(published: false, user_id: params[:user_id])
     render :index, location: api_quizzes_url
   end
 
@@ -22,7 +22,7 @@ class API::QuizzesController < ApplicationController
   def create
     if !logged_in?
       render json: {error: "Must be logged in to create a quiz"}, status: :unauthorized
-    elsif !current_user.admin
+    elsif !current_user.admin? 
       render json: {error: "Must be an admin to create a quiz"}, status: :unauthorized
     else
       @quiz = Quiz.new(title: quiz_params[:title], user_id: current_user.id)
@@ -47,13 +47,11 @@ class API::QuizzesController < ApplicationController
   end
 
   def publish
-    @quiz = Quiz.find(params[:quiz_id])
-    @user = @quiz.user
     if current_user.id != @user.id
       render json: {error: "Must be the owner to publish this quiz"}, status: :unauthorized
-    elsif Answer.where(question_id: Question.where('quiz_id = ?', @quiz.id)).where('correct = ?', true).length < @quiz.questions.count
+    elsif Answer.where(question_id: Question.where(quiz_id: @quiz.id, correct: true)).length < @quiz.questions.count
       render json: {error: "All questions must have a correct answer before publishing"}, status: :unprocessable_entity
-    elsif Answer.where(question_id: Question.where('quiz_id = ?', @quiz.id)).where('correct = ?', true).length > @quiz.questions.count
+    elsif Answer.where(question_id: Question.where(quiz_id: @quiz.id, correct: true)).length > @quiz.questions.count
       render json: {error: "One of more questions have multiple correct answer. Please fix before publishing"}, status: :unprocessable_entity
     else
       if @quiz.update(published: true)
@@ -71,7 +69,7 @@ class API::QuizzesController < ApplicationController
   def destroy
     if current_user.id != @user.id
       render json: {error: "Must be the owner to delete this quiz"}, status: :unauthorized
-    elsif @quiz.published
+    elsif @quiz.published?
       render json: {error: "Cannot delete a published quiz"}, status: :unauthorized
     else
       @quiz.destroy

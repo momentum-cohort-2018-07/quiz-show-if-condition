@@ -1,11 +1,10 @@
 class API::ResponsesController < ApplicationController
   def create
     @quiz = Quiz.find(params[:quiz_id])
-    @question = Question.where('quiz_id = ?', @quiz.id).find_by_number(params[:question_id])
-    @question ||= Question.where('quiz_id = ?', @quiz.id).find(params[:question_id])
-    @correct_answer = Answer.where("question_id=?", @question.id).where('correct = ?', true)[0]
-    @submitted_answer = Answer.where({question_id: @question.id, id: answer_params[:answer_id]})[0]
-    @previous_response = Response.where({user_id: current_user.id, quiz_id: @quiz.id, question_id: @question.id})[0]
+    @question = Question.find_by(quiz_id: @quiz.id, number: params[:question_id])
+    @correct_answer = Answer.find_by(question_id: @question.id, correct: true)
+    @submitted_answer = Answer.find_by(question_id: @question.id, id: answer_params[:answer_id])
+    @previous_response = Response.find_by(user_id: current_user.id, quiz_id: @quiz.id, question_id: @question.id)
     if !@quiz.published
       render json: {error: "Cannot take an unpublished quiz"}, status: :unauthorized
     elsif @previous_response

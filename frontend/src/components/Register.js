@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Button, Label, Input, Field, Notification } from 'bloomer'
 import Card from './Card'
 import 'bulma/css/bulma.css'
+import { NavLink } from 'react-router-dom'
+
 import apiCalls from '../apiCalls'
 
 class Register extends Component {
@@ -19,7 +21,7 @@ class Register extends Component {
     console.log(e)
     e.preventDefault()
     const { username, password, passwordConf } = this.state
-    const { setUser } = this.props
+    const { setCurrentUser } = this.props
     if (passwordConf === password) {
       apiCalls.register(username, password)
         .then(user => setCurrentUser(user))
@@ -36,10 +38,10 @@ class Register extends Component {
     const { username, password, passwordConf, errMsg } = this.state
     return (
       <Card>
-        <div className='has-text-centered'>
-          <a onClick={e => this.props.register(e)}> Login</a>
-        &nbsp;|&nbsp;
-          <a onClick={e => this.register(e, false)}> Register</a>
+        <div className='is-size-4 has-text-centered'>
+          <NavLink to='/login'>Log In</NavLink>
+          &nbsp;|&nbsp;
+          <NavLink to='/register'>Register</NavLink>
         </div>
         <div className='RegisterForm'>
           { errMsg &&

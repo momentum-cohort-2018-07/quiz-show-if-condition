@@ -17,7 +17,6 @@ const apiCalls = {
       })
       .catch(err => {
         if (err.response.statusCode === 401) {
-          console.log(err.response, 'response')
           throw new Error(err.response.body.error)
         }
       })
@@ -34,12 +33,9 @@ const apiCalls = {
         return { username, token }
       }))
       .catch((err) => {
-        console.log(err)
         if (err.response.statusCode === 422) {
           let passwordErr = err.response.body.password
-          console.log(passwordErr)
           let usernameErr = err.response.body.username
-          console.log(usernameErr)
           let newArray = passwordErr.concat(usernameErr)
           throw new Error(newArray)
         }
@@ -59,6 +55,23 @@ const apiCalls = {
       })
     )
   },
+  getAnswers: (quizID, questionID) => {
+    console.log(quizID, 'quizID in getAnswers')
+    return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/answers`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        return response.body
+      }))
+  },
+  getQuestion: (quizID, questionID) => {
+    console.log(quizID, 'quizID in getQuestions')
+    console.log(questionID, 'questionID in getQuestions')
+    return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        return response.body
+      }))
+  },
   checkAdmin: (admin, token) => {
     if (admin === true) {
       apiCalls.getAdminProfile(token)
@@ -66,13 +79,12 @@ const apiCalls = {
       apiCalls.getUserProfile(token)
     }
   },
-  getQuestions: (quizID) => {
-    return (request.get(`${apiDomain}/quizzes/${quizID}.json`)
+  getQuiz: (quizID) => {
+    return (request.get(`${apiDomain}/quizzes/${quizID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
-        let questions = response.body.data.relationships.questions
-        console.log(questions, 'questions')
-        return (questions)
+        let quiz = response.body.data
+        return (quiz)
       }))
   },
   getUserProfile: (token) => {

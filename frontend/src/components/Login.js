@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Button, Label, Input, Notification } from 'bloomer'
+import { Label, Input, Notification } from 'bloomer'
 import Card from './Card'
 
 import Register from './Register'
 import apiCalls from '../apiCalls'
+import { NavLink } from 'react-router-dom'
 
 class Login extends Component {
   constructor () {
@@ -42,10 +43,10 @@ class Login extends Component {
     } else {
       return (
         <Card>
-          <div className='has-text-centered'>
-            <a > Login</a>
-            &nbsp;|&nbsp;
-            <a onClick={e => this.register(e, true)}> Register</a>
+          <div className='is-size-4 has-text-centered'>
+            <NavLink to='/login'>Log In</NavLink>
+          &nbsp;|&nbsp;
+            <NavLink to='/register'>Register</NavLink>
           </div>
           { errMsg &&
           <Notification isColor='danger'>
@@ -56,7 +57,7 @@ class Login extends Component {
           <Input className='username' value={username} onChange={(e) => this.setState({ username: e.target.value })} />
           <Label>Password</Label>
           <Input className='username' value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
-          <Button className='is-primary' onClick={(e) => this.handleSubmit(e)}>Login</Button>
+          <NavLink to='/dashboard' className='is-primary' onClick={(e) => this.handleSubmit(e)}>Login</NavLink>
         </Card>
       )
     }

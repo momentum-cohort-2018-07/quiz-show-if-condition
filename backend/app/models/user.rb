@@ -11,4 +11,7 @@ class User < ApplicationRecord
     self.admin ||= false 
   end
 
+  def admin?
+    admin
+  end
 end

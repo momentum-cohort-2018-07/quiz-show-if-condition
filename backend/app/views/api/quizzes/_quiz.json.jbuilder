@@ -8,18 +8,17 @@ json.data do
     json.published quiz.published
   end
   json.relationships do
-    json.questions do
-      json.array! quiz.questions.sort_by(&:number) do |question|
-        # json.partial! 'api/questions/question', question: question
-        json.data question, :id, :text, :number
-        json.links do
-          if question.number.nil?
+    if !quiz.published
+      json.questions do
+        json.array! quiz.questions.sort_by(&:id) do |question|
+          json.data question, :id, :text
+          json.links do
             json.self api_quiz_question_path(quiz, question)
-          else
-            json.self api_quiz_question_path(quiz, question.number)
           end
         end
       end
+    else
+      json.partial! 'api/questions/question', question: question
     end
   end
 end

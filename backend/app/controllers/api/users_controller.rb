@@ -29,7 +29,7 @@ class API::UsersController < ApplicationController
   end
 
   def update
-    if current_user.id != @user.id && !current_user.admin
+    if current_user.id != @user.id && !current_user.admin?
       render json: {error: "You can't update this user"}, status: :unauthorized
     else
       if @user.update(user_params)
@@ -41,7 +41,7 @@ class API::UsersController < ApplicationController
   end
 
   def destroy
-    if current_user.id != @user.id && !current_user.admin
+    if current_user.id != @user.id && !current_user.admin?
       render json: {error: "You can't destroy this user"}, status: :unauthorized
     else
       @user.destroy

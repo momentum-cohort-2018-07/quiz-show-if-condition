@@ -536,8 +536,36 @@ The response will be:
 
 `POST /quizzes/:quiz_id/questions/:question_id/responses`
 
-The request body should be:
+The response will be:
 
 ```json
-
+{
+    "id": 1,
+    "user_id": 1,
+    "quiz_id": 1,
+    "question_id": 1,
+    "answer_id": 3,
+    "correct": true,
+    "created_at": "2018-09-25T11:59:50.218Z",
+    "updated_at": "2018-09-25T11:59:50.218Z"
+}
 ```
+
+### Score a quiz quiz :lock:
+
+`POST /api/quizzes/quiz_id/score`
+
+The response will be:
+
+```json
+{
+    "id": 1,
+    "user_id": 1,
+    "quiz_id": 1,
+    "number_correct": 1,
+    "number_asked": 3,
+    "created_at": "2018-09-25T12:10:46.297Z",
+    "updated_at": "2018-09-25T12:10:46.297Z"
+}
+```
+

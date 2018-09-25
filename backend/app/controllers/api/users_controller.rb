@@ -24,7 +24,7 @@ class API::UsersController < ApplicationController
     if @user.save
       render json: @user, status: :created
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors.map {|field, message| [field, field.to_s.capitalize + ' ' + message]}.to_h, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class API::UsersController < ApplicationController
       if @user.update(user_params)
         render :show, status: :updated, location: api_user_url(@user)
       else
-        render json: @user.errors, status: :unprocessable_entity
+        render json: @user.errors.map {|field, message| [field, field + ' ' + message]}.to_h, status: :unprocessable_entity
       end
     end
   end

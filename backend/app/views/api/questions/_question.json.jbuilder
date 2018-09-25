@@ -1,11 +1,13 @@
 json.links do
   if !question.number.nil?
-    json.self api_quiz_question_url(question.quiz, question.number)
+    json.self api_quiz_question_path(question.quiz, question.number)
     if question.number < question.quiz.questions.count
-      json.next api_quiz_question_url(question.quiz, question.number + 1)
+      json.next api_quiz_question_path(question.quiz, question.number + 1)
+    else
+      json.score api_quiz_score_path(question.quiz)
     end
   else
-    json.self api_quiz_question_url(question.quiz, question.id)
+    json.self api_quiz_question_path(question.quiz, question.id)
   end
 end
 json.data do

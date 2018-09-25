@@ -13,7 +13,11 @@ json.data do
         # json.partial! 'api/questions/question', question: question
         json.data question, :id, :text, :number
         json.links do
-          json.self api_quiz_question_path(quiz, question)
+          if question.number.nil?
+            json.self api_quiz_question_path(quiz, question)
+          else
+            json.self api_quiz_question_path(quiz, question.number)
+          end
         end
       end
     end

@@ -6,4 +6,8 @@ class Answer < ApplicationRecord
   def init
     self.correct ||= false 
   end  
+
+  def correct?
+    correct
+  end
 end

@@ -14,7 +14,7 @@ class API::AnswersController < ApplicationController
     elsif @quiz.published?
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     elsif answer_params.key?(:correct) && answer_params[:correct]
-      if Answer.find_by(question_id: @question.id, correct: true).exist?
+      if Answer.find_by(question_id: @question.id, correct: true)
         render json: {error: "Cannot mark more than one answer correct"}, status: :unauthorized
       end
     else

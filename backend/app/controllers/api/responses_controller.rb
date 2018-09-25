@@ -8,8 +8,8 @@ class API::ResponsesController < ApplicationController
 
     if @quiz.not_published?
       render json: {error: "Cannot take an unpublished quiz"}, status: :unauthorized
-    elsif @previous_response
-      render json: {error: "Cannot answer the same question twice"}, status: :unauthorized
+    # elsif @previous_response
+    #   render json: {error: "Cannot answer the same question twice"}, status: :unauthorized
     elsif !@submitted_answer
       render json: {error: "Must submit a valid answer the question"}, status: :unprocessable_entity
     elsif @responses.count + 1 != @question.number

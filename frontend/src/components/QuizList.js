@@ -3,7 +3,6 @@ import apiCalls from '../apiCalls'
 import QuizListItem from './QuizListItem'
 import Card from './Card'
 import { Title } from 'bloomer'
-// import Active from './Active'
 
 class QuizList extends Component {
   constructor () {
@@ -28,10 +27,10 @@ class QuizList extends Component {
   }
   render () {
     if (this.state.quizzes.length > 0) {
-      return (<div>
-        {/* {console.log(this.state.quizzes, 'state quizzes')} */}
-        {this.state.quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
-      </div>)
+      return (
+        <div>
+          {this.state.quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
+        </div>)
     } else {
       return ('')
     }

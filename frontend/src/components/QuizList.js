@@ -28,9 +28,11 @@ class QuizList extends Component {
   render () {
     if (this.state.quizzes.length > 0) {
       return (
-        <div>
-          {this.state.quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
-        </div>)
+        <Card>
+          <div>
+            {this.state.quizzes.map((quiz) => <Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title>)}
+          </div>
+        </Card>)
     } else {
       return ('')
     }

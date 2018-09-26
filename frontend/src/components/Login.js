@@ -43,21 +43,21 @@ class Login extends Component {
     } else {
       return (
         <Card>
-          <div className='is-size-4 has-text-centered'>
+          <div className='is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>
-          &nbsp;|&nbsp;
+            &nbsp;<span className='pipe'>|</span>&nbsp;
             <NavLink to='/register'>Register</NavLink>
           </div>
           { errMsg &&
-          <Notification isColor='danger'>
-            {errMsg}
+          <Notification isColor='warning'>
+            <div>{errMsg}</div>
           </Notification>
           }
           <Label>Username</Label>
           <Input className='username' value={username} onChange={(e) => this.setState({ username: e.target.value })} />
           <Label>Password</Label>
           <Input className='username' value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
-          <Button className='is-primary'><NavLink to='/dashboard' className='is-primary' onClick={(e) => this.handleSubmit(e)}>Login</NavLink></Button>
+          <Button className='button is-warning'><NavLink to='/dashboard' onClick={(e) => this.handleSubmit(e)}>Login</NavLink></Button>
         </Card>
       )
     }

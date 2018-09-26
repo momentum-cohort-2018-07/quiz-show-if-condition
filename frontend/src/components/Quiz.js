@@ -30,7 +30,7 @@ class Quiz extends Component {
       return (
         <Card>
           <Title><div>{quiz.attributes.title}</div></Title>
-          <Button className='is-primary'><NavLink to={`/quiz/${quizID}/question/${quiz.relationships.questions.data.attributes.number}`} >Start</NavLink></Button>
+          <Button className='is-warning has-text-white'><NavLink to={`/quiz/${quizID}/question/${quiz.relationships.questions.data.attributes.number}`} >Start Quiz</NavLink></Button>
         </Card>)
     } else {
       return ('')

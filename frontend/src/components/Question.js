@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Button } from 'bloomer'
+import { Button, Title } from 'bloomer'
 import { NavLink } from 'react-router-dom'
+import Card from './Card'
 
 import apiCalls from '../apiCalls'
 import Answer from './Answer'
@@ -62,12 +63,15 @@ class Question extends Component {
       const answers = data.relationships.answers
       let nextQuesionId = parseInt(id) + 1
       return (
-        <div>
-          <h1> Question 1 {question}</h1>
-          {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-          <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          <NavLink to={`quiz/${quizId}/question/${nextQuesionId}`}>Next</NavLink>
-        </div>
+        <Card>
+          <div>
+            <Title><h1> Question 1 {question}</h1></Title>
+            {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
+            <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit Answer</Button>
+            &nbsp;
+            <Button className='is-warning'><NavLink to={`quiz/${quizId}/question/${nextQuesionId}`}>Next Question</NavLink></Button>
+          </div>
+        </Card>
       )
     } else {
       return <div>no question bub</div>

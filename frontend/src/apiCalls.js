@@ -77,9 +77,9 @@ const apiCalls = {
       }))
   },
   submitAnswer: (answerID, quizID, questionID) => {
-    console.log(answerID, ' answerID')
-    console.log(quizID, ' quizID')
-    console.log(questionID, ' questionID')
+    // console.log(answerID, ' answerID')
+    // console.log(quizID, ' quizID')
+    // console.log(questionID, ' questionID')
     return (request.post(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/responses`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'answer_id': `${answerID}`
@@ -99,10 +99,17 @@ const apiCalls = {
     return (request.get(`${apiDomain}/quizzes/${quizID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
-        console.log(response, ' get quiz response in API')
+        // console.log(response, ' get quiz response in API')
         let quiz = response.body.data
         return (quiz)
       }))
+  },
+  getScore: (quizID) => {
+    return (request.post(`${apiDomain}/quizzes/${quizID}/score`))
+      .set('Authorization', `Bearer ${userToken}`)
+      .then(response => {
+        return (response.body.number_correct)
+      })
   },
   getUserProfile: (token) => {
     return request.get(`${apiDomain}/profile`)

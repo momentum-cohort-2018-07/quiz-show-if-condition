@@ -26,7 +26,7 @@ class Quiz extends Component {
   render () {
     if (this.state.quiz) {
       let quiz = this.state.quiz
-      console.log(this.state.quiz, 'this.state.quiz')
+      // console.log(this.state.quiz, 'this.state.quiz')
       let quizID = this.props.id
       // let questions = quiz.relationships.questions
       // console.log(questions, 'question variable in Quiz')

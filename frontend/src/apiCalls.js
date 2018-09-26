@@ -56,7 +56,6 @@ const apiCalls = {
     )
   },
   getAnswers: (quizID, questionID) => {
-    console.log(quizID, 'quizID in getAnswers')
     return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/answers`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
@@ -64,8 +63,6 @@ const apiCalls = {
       }))
   },
   getQuestion: (quizID, questionID) => {
-    console.log(quizID, 'quizID in getQuestions')
-    console.log(questionID, 'questionID in getQuestions')
     return (request.get(`${apiDomain}/quizzes/${quizID}/questions/${questionID}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
@@ -73,7 +70,6 @@ const apiCalls = {
       }))
   },
   getNextQuestion: (questionURL) => {
-    // console.log(`https://quizzlybear-api.herokuapp.com/${questionURL}`)
     return (request.get(`https://quizzlybear-api.herokuapp.com/${questionURL}`)
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
@@ -81,9 +77,6 @@ const apiCalls = {
       }))
   },
   submitAnswer: (answerID, quizID, questionID) => {
-    // console.log(answerID, 'answerID')
-    // console.log(quizID, 'quizID')
-    // console.log(questionID, 'questionID')
     return (request.post(`${apiDomain}/quizzes/${quizID}/questions/${questionID}/responses`)
       .set('Authorization', `Bearer ${userToken}`)
       .send({ 'answer_id': `${answerID}`
@@ -104,7 +97,6 @@ const apiCalls = {
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
         let quiz = response.body.data
-        console.log(response.body, 'next submit answer')
         return (quiz)
       }))
   },

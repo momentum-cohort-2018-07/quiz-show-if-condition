@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'bloomer'
+import { NavLink } from 'react-router-dom'
 
 import apiCalls from '../apiCalls'
 import Answer from './Answer'
@@ -26,34 +27,46 @@ class Question extends Component {
   }
   getQuestion (quizID, questionID) {
     apiCalls.getQuestion(quizID, questionID).then(question => {
+      console.log(question, 'question')
       this.setState({ question })
     })
   }
   getAnswers (quizID, questionID) {
     apiCalls.getAnswers(quizID, questionID).then(answers => {
+      console.log(answers, 'answers')
       this.setState({ answers })
     })
+  }
+  setNewQuestion (newQuestion) {
+    // console.log(newQuestion, 'new question for state')
+    this.setState({ question: newQuestion })
+    // console.log(this.state.question, 'question state new question')
   }
   handleSubmit (e) {
     let quizID = this.props.quizId
     let questionID = this.props.id
     let answerID = this.state.currentAnswer
-    let nextQuestion = this.state.question.links.next
     apiCalls.submitAnswer(answerID, quizID, questionID)
-    apiCalls.getNextQuestion(nextQuestion).then(apiCalls.getQuiz(quizID))
-    // console.log(this.state.question.links.next, 'this.state.questions.links.data.next')
+    apiCalls.getQuiz(quizID).then(response => {
+      console.log(response, 'response')
+      let newQuestion = response.relationships.questions
+      this.setNewQuestion(newQuestion)
+      // return (<Redirect to=`http://localhost:3000/quiz/2/question/${newQuestion}` />)
+    })
   }
   render () {
+    const { id, quizId } = this.props
     if (this.state.question && this.state.question.data.attributes.text) {
-      console.log(this.state.question, 'state of question component')
       const { data, links } = this.state.question
       const question = data.attributes.text
       const answers = data.relationships.answers
+      let nextQuesionId = parseInt(id) + 1
       return (
         <div>
-          <h1>Question 1 {question}</h1>
+          <h1> Question 1 {question}</h1>
           {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
           <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
+          <NavLink to={`quiz/${quizId}/question/${nextQuesionId}`}>Next</NavLink>
         </div>
       )
     } else {

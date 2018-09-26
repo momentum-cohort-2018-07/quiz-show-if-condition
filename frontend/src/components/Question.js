@@ -28,20 +28,16 @@ class Question extends Component {
   }
   getQuestion (quizID, questionID) {
     apiCalls.getQuestion(quizID, questionID).then(question => {
-      console.log(question, 'question')
       this.setState({ question })
     })
   }
   getAnswers (quizID, questionID) {
     apiCalls.getAnswers(quizID, questionID).then(answers => {
-      console.log(answers, 'answers')
       this.setState({ answers })
     })
   }
   setNewQuestion (newQuestion) {
-    // console.log(newQuestion, 'new question for state')
     this.setState({ question: newQuestion })
-    // console.log(this.state.question, 'question state new question')
   }
   handleSubmit (e) {
     let quizID = this.props.quizId
@@ -49,10 +45,8 @@ class Question extends Component {
     let answerID = this.state.currentAnswer
     apiCalls.submitAnswer(answerID, quizID, questionID)
     apiCalls.getQuiz(quizID).then(response => {
-      console.log(response, 'response')
       let newQuestion = response.relationships.questions
       this.setNewQuestion(newQuestion)
-      // return (<Redirect to=`http://localhost:3000/quiz/2/question/${newQuestion}` />)
     })
   }
   render () {

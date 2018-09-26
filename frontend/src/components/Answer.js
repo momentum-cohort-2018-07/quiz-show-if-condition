@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
-
-// import apiCalls from '../apiCalls'
+import { Radio, Control } from 'bloomer'
 
 class Answer extends Component {
+  setStateinQuestion (e) {
+    const value = e.target.value
+    this.props.setStateInQuestion(value)
+  }
   render () {
     if (this.props.answer) {
-      const { links, answer } = this.props
+      const { answer } = this.props
       const { data } = answer
       return (
         <div>
-          <div>{data.text}</div>
-          <div>{links.next}</div>
+          <div>
+            <Control>
+              <Radio name={'question'} value={this.props.answer.data.id} onChange={(e) => { this.setStateinQuestion(e) }}>{data.text}</Radio>
+            </Control>
+          </div>
         </div>
       )
     } else {

@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { Button, Title } from 'bloomer'
+import { NavLink } from 'react-router-dom'
+import Card from './Card'
 
 import apiCalls from '../apiCalls'
 import Answer from './Answer'
@@ -8,20 +11,22 @@ class Question extends Component {
     super()
     this.state = {
       question: undefined,
-      answers: []
+      answers: [],
+      currentAnswer: null
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.setStateInQuestion = this.setStateInQuestion.bind(this)
+  }
+  setStateInQuestion (value) {
+    this.setState({ currentAnswer: value })
   }
   componentDidMount () {
     let quizID = this.props.quizId
     let questionID = this.props.id
-
-    console.log(quizID, 'in question component')
-    console.log(questionID, 'questionID in question component')
     this.getQuestion(quizID, questionID)
     this.getAnswers(quizID, questionID)
   }
   getQuestion (quizID, questionID) {
-    console.log(quizID, 'quizID in Question Comp.')
     apiCalls.getQuestion(quizID, questionID).then(question => {
       this.setState({ question })
     })
@@ -31,21 +36,39 @@ class Question extends Component {
       this.setState({ answers })
     })
   }
-
+  setNewQuestion (newQuestion) {
+    this.setState({ question: newQuestion })
+  }
+  handleSubmit (e) {
+    let quizID = this.props.quizId
+    let questionID = this.props.id
+    let answerID = this.state.currentAnswer
+    apiCalls.submitAnswer(answerID, quizID, questionID)
+    apiCalls.getQuiz(quizID).then(response => {
+      let newQuestion = response.relationships.questions
+      this.setNewQuestion(newQuestion)
+    })
+  }
   render () {
+    const { id, quizId } = this.props
     if (this.state.question && this.state.question.data.attributes.text) {
-      console.log(this.state.question, 'state of question component')
       const { data, links } = this.state.question
       const question = data.attributes.text
       const answers = data.relationships.answers
+      let nextQuesionId = parseInt(id) + 1
       return (
-        <div>
-          <h1>Question 1 {question}</h1>
-          {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} />)}
-        </div>
+        <Card>
+          <div>
+            <Title><h1> Question 1 {question}</h1></Title>
+            {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
+            <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit Answer</Button>
+            &nbsp;
+            <Button className='is-warning'><NavLink to={`quiz/${quizId}/question/${nextQuesionId}`}>Next Question</NavLink></Button>
+          </div>
+        </Card>
       )
     } else {
-      return <div>no question bub</div>
+      return ('')
     }
   }
 }

@@ -74,7 +74,7 @@ class Question extends Component {
         </Card>
       )
     } else {
-      return <div>no question bub</div>
+      return ('')
     }
   }
 }

@@ -1,5 +1,5 @@
 json.links do
-  json.self api_user_url(user)
+  json.self api_user_path(user)
 end
 json.data do
   json.id user.id

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import apiCalls from '../apiCalls'
 
 import Card from './Card'
-// import Question from './Question'
 import { NavLink } from 'react-router-dom'
 import { Button, Title } from 'bloomer'
 
@@ -14,10 +13,8 @@ class Quiz extends Component {
   componentDidMount () {
     let quizID = this.props.id
     this.getQuiz(quizID)
-    // console.log(quizID, 'quizId in componentDidMount in componenet')
   }
   getQuiz (quizID) {
-    // console.log(quizID, 'quizID in getquiz componenet')
     apiCalls.getQuiz(quizID).then(quiz => {
       // console.log(quiz, 'quiz')
       this.setState({ quiz })
@@ -33,7 +30,7 @@ class Quiz extends Component {
       return (
         <Card>
           <Title><div>{quiz.attributes.title}</div></Title>
-          <Button className='is-primary'><NavLink to={`/quiz/${quizID}/question/${quiz.relationships.questions.data.attributes.number}`} >Start</NavLink></Button>
+          <Button className='is-warning has-text-white'><NavLink to={`/quiz/${quizID}/question/${quiz.relationships.questions.data.attributes.number}`} >Start Quiz</NavLink></Button>
         </Card>)
     } else {
       return ('')

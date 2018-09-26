@@ -1,18 +1,21 @@
 class API::QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :update, :destroy]
+  before_action :set_question
 
   def index
-    @questions = Question.where('quiz_id = ?', params[:quiz_id]).order('number')
+    if @quiz.published?
+      @questions = Question.where(quiz_id: @quiz.id).order(:number)
+    else
+      @questions = Question.where(quiz_id: @quiz.id).order(:id)
+    end
   end
 
   def show
   end
 
   def create
-    @quiz = Quiz.find(params[:quiz_id])
     if current_user.id != @quiz.user.id
       render json: {error: "Must own the quiz to add a new question"}, status: :unprocessable_entity
-    elsif @quiz.published
+    elsif @quiz.published?
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     else
       @question = Question.new(text: question_params[:text], quiz_id: @quiz.id)
@@ -27,7 +30,7 @@ class API::QuestionsController < ApplicationController
   def update
     if current_user.id != @quiz.user.id
       render json: {error: "Must be the owner to update this quiz"}, status: :unauthorized
-    elsif @quiz.published
+    elsif @quiz.published?
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     else
       if @question.update(question_params)
@@ -41,7 +44,7 @@ class API::QuestionsController < ApplicationController
   def destroy
     if current_user.id != @quiz.user.id
       render json: {error: "Must be the quiz owner to delete a question"}
-    elsif @quiz.published
+    elsif @quiz.published?
       render json: {error: "Cannot edit a published quiz"}, status: :unauthorized
     else
       @question.destroy
@@ -56,9 +59,9 @@ class API::QuestionsController < ApplicationController
   end
 
   def set_question
-    @question = Question.where('quiz_id = ?', params[:quiz_id]).find_by_number(params[:id])
-    @question ||= Question.where('quiz_id = ?', params[:quiz_id]).find(params[:id])
     @quiz = Quiz.find(params[:quiz_id])
+    if params.key?(:id)
+      @question = Question.find_by(quiz_id: @quiz.id, number: params[:id]) || Question.find_by(quiz_id: @quiz.id, id: params[:id])
+    end
   end
-
 end

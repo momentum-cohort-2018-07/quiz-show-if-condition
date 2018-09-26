@@ -8,4 +8,13 @@ class Quiz < ApplicationRecord
   def init
     self.published ||= false 
   end    
+
+  def published?
+    published
+  end
+
+  def not_published?
+    !published?
+  end
+
 end

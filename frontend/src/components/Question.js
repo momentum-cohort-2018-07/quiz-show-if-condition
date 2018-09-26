@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Button } from 'bloomer'
+import { Button, Title } from 'bloomer'
 import { NavLink } from 'react-router-dom'
+import Card from './Card'
 
 import apiCalls from '../apiCalls'
 import Answer from './Answer'
@@ -98,11 +99,12 @@ class Question extends Component {
           <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
           <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.showScore(e)}>Show Score</NavLink>
         </div>
+
       )
     } else if (this.state.score) {
       return (<div>You Scored {this.state.score.number_correct}/{this.state.score.number_asked}</div>)
     } else {
-      return <div>no question bub</div>
+      return ('')
     }
   }
 }

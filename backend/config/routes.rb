@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     get 'profile', to: 'users#profile'
     get 'admin_profile', to: 'users#admin_profile'
     resources :users do
-      resources :scores, only: [:index]
       get 'published_quizzes', to: 'quizzes#published_quizzes'
       get 'unpublished_quizzes', to: 'quizzes#unpublished_quizzes'
     end

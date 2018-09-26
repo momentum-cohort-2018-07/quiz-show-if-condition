@@ -3,13 +3,14 @@ class API::ResponsesController < ApplicationController
     @quiz = Quiz.find(params[:quiz_id])
     @question = Question.find_by(quiz_id: @quiz.id, number: params[:question_id]) || Question.find_by(quiz_id: @quiz.id, id: params[:question_id])
     @submitted_answer = Answer.find_by(question_id: @question.id, id: answer_params[:answer_id])
+
+    Response.where(user_id: current_user.id, quiz_id: @quiz.id, question_id: @question.id).each do |response|
+      response.destroy
+    end
+
     @previous_response = Response.find_by(user_id: current_user.id, quiz_id: @quiz.id, question_id: @question.id)
     @responses = Response.where(user_id: current_user.id, quiz_id: @quiz.id)
 
-
-    if @previous_response
-      @previous_response.destroy
-    end
 
     if @quiz.not_published?
       render json: {error: "Cannot take an unpublished quiz"}, status: :unauthorized

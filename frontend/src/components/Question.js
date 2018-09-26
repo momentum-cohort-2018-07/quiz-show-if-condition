@@ -100,7 +100,7 @@ class Question extends Component {
         </div>
       )
     } else if (this.state.score) {
-      return (<div>You Scored {this.state.score}</div>)
+      return (<div>You Scored {this.state.score.number_correct}/{this.state.score.number_asked}</div>)
     } else {
       return <div>no question bub</div>
     }

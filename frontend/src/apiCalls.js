@@ -108,7 +108,7 @@ const apiCalls = {
     return (request.post(`${apiDomain}/quizzes/${quizID}/score`))
       .set('Authorization', `Bearer ${userToken}`)
       .then(response => {
-        return (response.body.number_correct)
+        return (response.body)
       })
   },
   getUserProfile: (token) => {

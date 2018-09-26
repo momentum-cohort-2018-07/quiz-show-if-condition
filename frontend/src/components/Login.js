@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Label, Input, Notification } from 'bloomer'
+import { Label, Input, Notification, Button } from 'bloomer'
 import Card from './Card'
 
 import Register from './Register'
@@ -57,7 +57,7 @@ class Login extends Component {
           <Input className='username' value={username} onChange={(e) => this.setState({ username: e.target.value })} />
           <Label>Password</Label>
           <Input className='username' value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
-          <NavLink to='/dashboard' className='is-primary' onClick={(e) => this.handleSubmit(e)}>Login</NavLink>
+          <Button className='is-primary'><NavLink to='/dashboard' className='is-primary' onClick={(e) => this.handleSubmit(e)}>Login</NavLink></Button>
         </Card>
       )
     }

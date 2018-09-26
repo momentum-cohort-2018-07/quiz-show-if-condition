@@ -43,7 +43,7 @@ class Login extends Component {
     } else {
       return (
         <Card>
-          <div className='is-size-6 has-text-centered'>
+          <div className='links is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>
             &nbsp;<span className='pipe'>|</span>&nbsp;
             <NavLink to='/register'>Register</NavLink>

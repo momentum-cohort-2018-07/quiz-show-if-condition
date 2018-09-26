@@ -39,35 +39,37 @@ class Question extends Component {
       this.setState({ answers })
     })
   }
-  setNewQuestion (e) {
-    e.preventDefault()
+  setNewQuestion () {
     let quizID = this.props.quizId
     apiCalls.getQuiz(quizID).then(response => {
       let newQuestion = response.relationships.questions
-      // console.log(newQuestion, 'new Question')
-      console.log(newQuestion.links.next, 'question')
       if (!newQuestion.links.score) {
         this.setState({ question: newQuestion })
       } else {
         this.setState({ question: newQuestion })
         this.setState({ lastQuestion: true })
       }
-      // console.log(this.state.showScore, 'show score')
     })
   }
-  handleSubmit (e) {
+  handleSubmit () {
     let quizID = this.props.quizId
     let questionID = this.state.question.data.attributes.number
-    // console.log(this.state.question, 'questionID in Question')
     let answerID = this.state.currentAnswer
-    apiCalls.submitAnswer(answerID, quizID, questionID)
+    if (!this.state.lastQuestion) {
+      apiCalls.submitAnswer(answerID, quizID, questionID)
+        .then(res => {
+          this.setNewQuestion()
+        })
+    } else if (this.state.lastQuestion) {
+      apiCalls.submitAnswer(answerID, quizID, questionID)
+        .then(res => {
+          this.showScore()
+        })
+    }
   }
-  showScore (e) {
-    e.preventDefault()
-    console.log('im here')
+  showScore () {
     let quizID = this.props.quizId
     apiCalls.getScore(quizID).then(response => {
-      console.log(response, 'response in question comp')
       this.setState({ score: response })
       this.setState({ question: undefined })
       this.setState({ lastQuestion: undefined })
@@ -84,11 +86,10 @@ class Question extends Component {
           <h1> Question {data.attributes.number}. {question}</h1>
           {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
           <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.setNewQuestion(e)}>Next</NavLink>
+          {/* <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.setNewQuestion(e)}>Next</NavLink> */}
         </div>
       )
     } else if (this.state.lastQuestion && this.state.question) {
-      // console.log('Im here in the last question render')
       const { data, links } = this.state.question
       const question = data.attributes.text
       const answers = data.relationships.answers
@@ -97,9 +98,8 @@ class Question extends Component {
           <h1> Question {data.attributes.number}. {question}</h1>
           {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
           <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.showScore(e)}>Show Score</NavLink>
+          {/* <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.showScore(e)}>Show Score</NavLink> */}
         </div>
-
       )
     } else if (this.state.score) {
       return (<div>You Scored {this.state.score.number_correct}/{this.state.score.number_asked}</div>)

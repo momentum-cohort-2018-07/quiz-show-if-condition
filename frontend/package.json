@@ -6,6 +6,7 @@
     "bloomer": "^0.6.3",
     "bulma": "^0.7.1",
     "node-sass": "^4.9.3",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-markdown": "^3.6.0",

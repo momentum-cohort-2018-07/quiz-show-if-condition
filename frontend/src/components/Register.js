@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Label, Input, Field, Notification } from 'bloomer'
 import { NavLink } from 'react-router-dom'
 import 'bulma/css/bulma.css'
+import PropTypes from 'prop-types'
 
 import Card from './Card'
 import apiCalls from '../apiCalls'
@@ -63,4 +64,7 @@ class Register extends Component {
   }
 }
 
+Register.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired
+}
 export default Register

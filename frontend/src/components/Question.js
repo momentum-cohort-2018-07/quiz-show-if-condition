@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Title } from 'bloomer'
+import { NavLink } from 'react-router-dom'
 import Markdown from 'react-markdown'
+import PropTypes from 'prop-types'
 
 import apiCalls from '../apiCalls'
 import Answer from './Answer'
@@ -99,10 +101,25 @@ class Question extends Component {
         </Card>
       )
     } else if (this.state.score) {
-      return (<Card><div><Title>You Scored</Title> {this.state.score.number_correct}/{this.state.score.number_asked}</div></Card>)
+      return (
+        <Card>
+          <div>
+            <Title>
+              You Scored {this.state.score.number_correct}/{this.state.score.number_asked}
+            </Title>
+            <NavLink to='/'><Button className='is-warning'>Return To Quizzes</Button></NavLink>
+          </div>
+        </Card>)
     } else {
       return ('')
     }
   }
+}
+
+Question.propTypes = {
+  handleSubmit: PropTypes.func,
+  setNewQuestion: PropTypes.func,
+  setStateInQuestion: PropTypes.func,
+  quizID: PropTypes.number
 }
 export default Question

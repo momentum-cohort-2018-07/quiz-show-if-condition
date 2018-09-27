@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Radio } from 'bloomer'
 import Markdown from 'react-markdown'
+import PropTypes from 'prop-types'
 
 class Answer extends Component {
   setStateinQuestion (e) {
@@ -20,5 +21,15 @@ class Answer extends Component {
       return ''
     }
   }
+}
+
+Answer.propTypes = {
+  answer: PropTypes.shape({
+    data: PropTypes.shape({
+      id: PropTypes.number,
+      text: PropTypes.string
+    })
+  }),
+  setStateInQuestion: PropTypes.func.isRequired
 }
 export default Answer

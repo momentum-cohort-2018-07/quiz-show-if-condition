@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Button, Title } from 'bloomer'
 import { NavLink } from 'react-router-dom'
-import Card from './Card'
+import Markdown from 'react-markdown'
+import PropTypes from 'prop-types'
 
 import apiCalls from '../apiCalls'
 import Answer from './Answer'
+import Card from './Card'
 
 class Question extends Component {
   constructor () {
@@ -76,36 +78,48 @@ class Question extends Component {
     })
   }
   render () {
-    const { quizId } = this.props
     if (this.state.question && this.state.question.data.attributes.text && !this.state.lastQuestion) {
       const { data, links } = this.state.question
       const question = data.attributes.text
       const answers = data.relationships.answers
       return (
-        <div>
-          <h1> Question {data.attributes.number}. {question}</h1>
+        <Card>
+          <Title className='is-size-5'><Markdown className='code' source={question} /></Title>
           {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-          <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          {/* <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.setNewQuestion(e)}>Next</NavLink> */}
-        </div>
+          <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
+        </Card>
       )
     } else if (this.state.lastQuestion && this.state.question) {
       const { data, links } = this.state.question
       const question = data.attributes.text
       const answers = data.relationships.answers
       return (
-        <div>
-          <h1> Question {data.attributes.number}. {question}</h1>
+        <Card>
+          <Title className='is-size-5'><Markdown source={question} /></Title>
           {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-          <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          {/* <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.showScore(e)}>Show Score</NavLink> */}
-        </div>
+          <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit and Show Score</Button>
+        </Card>
       )
     } else if (this.state.score) {
-      return (<div>You Scored {this.state.score.number_correct}/{this.state.score.number_asked}</div>)
+      return (
+        <Card>
+          <div>
+            <Title>
+              You Scored {this.state.score.number_correct}/{this.state.score.number_asked}
+            </Title>
+            <NavLink to='/'><Button className='is-warning'>Return To Quizzes</Button></NavLink>
+          </div>
+        </Card>)
     } else {
       return ('')
     }
   }
+}
+
+Question.propTypes = {
+  handleSubmit: PropTypes.func,
+  setNewQuestion: PropTypes.func,
+  setStateInQuestion: PropTypes.func,
+  quizID: PropTypes.number
 }
 export default Question

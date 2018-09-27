@@ -11,6 +11,10 @@ body {
   color: #242624;
 }
 
+p > code {
+  font-size: .75rem;
+}
+
 .App {
     padding: 1rem 2rem;
     display: flex;
@@ -25,8 +29,10 @@ body {
   width: 75%;
 }
 
-.links {
-  margin-bottom: 10px;
+.attribution {
+  font-size: 14px;
+  margin-top: 4rem;
+  margin-right: 1rem;
 }
 
 .board {
@@ -39,11 +45,20 @@ body {
 .button {
   margin-top: 10px;
 }
+
+.selection {
+   max-width: 10%;
+}
+
+.links {
+  margin-bottom: 10px;
+}
+
 .main {
     flex: 0 1 100%;
 }
 
-.pipe {
+.pipe .question-number {
   color: #D96C06;
 }
 
@@ -52,8 +67,8 @@ font-family: 'Fredoka One', cursive;
 color: #D96C06;
 }
 
-.title > p {
-  padding-top: 5px;
+.user-info {
+  padding-top: 10px;
 }
 
 @media only screen and (min-width: 1025px) {

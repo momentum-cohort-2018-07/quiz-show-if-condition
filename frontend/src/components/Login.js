@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Label, Input, Notification, Button } from 'bloomer'
-import Card from './Card'
+import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
+import Card from './Card'
 import Register from './Register'
 import apiCalls from '../apiCalls'
-import { NavLink } from 'react-router-dom'
 
 class Login extends Component {
   constructor () {
@@ -64,4 +65,9 @@ class Login extends Component {
   }
 }
 
+Login.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  setCurrentUser: PropTypes.func.isRequired
+}
 export default Login

@@ -12,6 +12,17 @@ const Sidebar = (props) => (
       <p><Button className='is-warning' onClick={props.onLogout}>Logout</Button></p>
     </div>
     }
+    <div className='attribution'>
+      <p>
+      Created by If-Condition
+        <p>
+        (Jeanette O'Brien, Steve Patterson, Alex Corey and Chris Hackman)
+        </p>
+      </p>
+      <p>
+        <a href='https://github.com/momentum-cohort-2018-07/quiz-show-if-condition'>See the code at Github.</a>
+      </p>
+    </div>
   </div>
 )
 

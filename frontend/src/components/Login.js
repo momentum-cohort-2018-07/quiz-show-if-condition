@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Label, Input, Notification, Button } from 'bloomer'
-import Card from './Card'
+import { NavLink } from 'react-router-dom'
 
+import Card from './Card'
 import Register from './Register'
 import apiCalls from '../apiCalls'
-import { NavLink } from 'react-router-dom'
 
 class Login extends Component {
   constructor () {

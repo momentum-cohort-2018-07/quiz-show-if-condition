@@ -82,11 +82,9 @@ class Question extends Component {
       const answers = data.relationships.answers
       return (
         <Card>
-          <div>
-            <Title className='is-size-5'><span className='is-orange'>Question{data.attributes.number}.</span> <Markdown source={question} /></Title>
-            {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-            <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          </div>
+          <Title className='is-size-5'><Markdown className='code' source={question} /></Title>
+          {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
+          <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
         </Card>
       )
     } else if (this.state.lastQuestion && this.state.question) {
@@ -95,11 +93,9 @@ class Question extends Component {
       const answers = data.relationships.answers
       return (
         <Card>
-          <div>
-            <Title className='is-size-5'><span className='question-number'>Question{data.attributes.number}.</span> <Markdown className='title-code' source={question} /></Title>
-            {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-            <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          </div>
+          <Title className='is-size-5'><Markdown source={question} /></Title>
+          {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
+          <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit and Show Score</Button>
         </Card>
       )
     } else if (this.state.score) {

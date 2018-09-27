@@ -11,6 +11,10 @@ body {
   color: #242624;
 }
 
+p > code {
+  font-size: .75rem;
+}
+
 .App {
     padding: 1rem 2rem;
     display: flex;
@@ -23,6 +27,12 @@ body {
   padding: 1rem 2rem;
   margin: 5rem 15%;
   width: 75%;
+}
+
+.attribution {
+  font-size: 14px;
+  margin-top: 4rem;
+  margin-right: 1rem;
 }
 
 .board {
@@ -52,19 +62,13 @@ body {
   color: #D96C06;
 }
 
-.title {
-  line-height: 2rem;
-}
-.title-code {
-  font-size: small;
-}
 .sidebar-title {
 font-family: 'Fredoka One', cursive;
 color: #D96C06;
 }
 
-.title > p {
-  padding-top: 5px;
+.user-info {
+  padding-top: 10px;
 }
 
 @media only screen and (min-width: 1025px) {

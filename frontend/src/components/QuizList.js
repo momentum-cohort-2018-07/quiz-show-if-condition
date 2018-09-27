@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { Title } from 'bloomer'
+
 import apiCalls from '../apiCalls'
 import QuizListItem from './QuizListItem'
 import Card from './Card'
-import { Title } from 'bloomer'
 
 class QuizList extends Component {
   constructor () {

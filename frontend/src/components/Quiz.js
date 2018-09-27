@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import apiCalls from '../apiCalls'
-
-import Card from './Card'
 import { NavLink } from 'react-router-dom'
 import { Button, Title } from 'bloomer'
+
+import apiCalls from '../apiCalls'
+import Card from './Card'
 
 class Quiz extends Component {
   constructor (props) {

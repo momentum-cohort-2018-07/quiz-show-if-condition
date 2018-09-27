@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Label, Input, Field, Notification } from 'bloomer'
-import Card from './Card'
-import 'bulma/css/bulma.css'
 import { NavLink } from 'react-router-dom'
+import 'bulma/css/bulma.css'
 
+import Card from './Card'
 import apiCalls from '../apiCalls'
 
 class Register extends Component {

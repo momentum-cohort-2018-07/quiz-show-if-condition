@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import './index.css'
 import 'bulma/css/bulma.css'
+import PropTypes from 'prop-types'
 
 import Login from './Login'
 import Sidebar from './Sidebar'
 import apiCalls from '../apiCalls'
 import QuizList from './QuizList'
 
-class Homepage extends Component {
+class LoginContainer extends Component {
   constructor () {
     super()
     this.setUserToken = this.setUserToken.bind(this)
@@ -45,4 +46,9 @@ class Homepage extends Component {
   }
 }
 
-export default Homepage
+LoginContainer.propTypes = {
+  setUserToken: PropTypes.func,
+  setCurrentUser: PropTypes.func,
+  onLogout: PropTypes.func
+}
+export default LoginContainer

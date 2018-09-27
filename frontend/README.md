@@ -5,29 +5,37 @@
 ## Getting Started 
 After cloning the repo, install dependencies by running: 
 `yarn install` 
+`npm install bulma`
+`npm install bloomer`
 
-To start the app, run: 
+To start the app locally, run: 
 `yarn start`
 
 ## Components
-Below is an overview of Quizzly Bear's components, the props they are passed and their states.
+Below is an overview of Quizzly Bear's components,their states and the props they are passed.
 
-## App
+### Card
+* Props
+  * quiz
+
+### Answer
+* Props
+  * answer
+  * setStateInQuestion
+
+### App
 * State
   * currentUser
 
-## Card
+### Card
 * Props
-  * 43children
+  * children
   
-## Dashboard
-* State 
-  * quizzes
+### LoginContainer
 * Props
-  * setUserToken
-  * setCurrentUser
+  * onLogout
 
-## Login
+### Login
 * State
   * username
   * password
@@ -37,15 +45,45 @@ Below is an overview of Quizzly Bear's components, the props they are passed and
   * setUserToken
   * setCurrentUser
 
-## Sidebar
+###Question
+* State
+  * question
+  * answers
+  * currentAnswer
+  * lastQuestion
+  * score
+* Props
+  * quizID
+  * questionID
+
+### Quiz
+* State
+  * empty object
+* Props
+  * quizID
+
+### QuizList
+* State
+  * quizzes
+  * published
+  * activeQuiz
+
+### QuizListItem 
+* Props
+  * quiz
+
+### Sidebar
   * Props
     * onLogout
     * currentUser
 
-## QuizBtn
+### Register 
+* State 
+  * username
+  * password
+  * passwordConf
+  * errMsg
 * Props
-  * quiz
+  * setCurrentUser
 
-## Active
-* Props
-  * question
+

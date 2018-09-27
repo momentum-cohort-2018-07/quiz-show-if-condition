@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Label, Input, Field, Notification } from 'bloomer'
-import Card from './Card'
-import 'bulma/css/bulma.css'
 import { NavLink } from 'react-router-dom'
+import 'bulma/css/bulma.css'
+import PropTypes from 'prop-types'
 
+import Card from './Card'
 import apiCalls from '../apiCalls'
 
 class Register extends Component {
@@ -18,7 +19,6 @@ class Register extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit (e) {
-    console.log(e)
     e.preventDefault()
     const { username, password, passwordConf } = this.state
     const { setCurrentUser } = this.props
@@ -38,15 +38,15 @@ class Register extends Component {
     const { username, password, passwordConf, errMsg } = this.state
     return (
       <Card>
-        <div className='is-size-4 has-text-centered'>
+        <div className='links is-size-6 has-text-centered'>
           <NavLink to='/login'>Log In</NavLink>
-          &nbsp;|&nbsp;
+          &nbsp;<span className='pipe'>|</span>&nbsp;
           <NavLink to='/register'>Register</NavLink>
         </div>
         <div className='RegisterForm'>
           { errMsg &&
-          <Notification isColor='danger'>
-            {errMsg}
+          <Notification isColor='warning'>
+            <div>{errMsg}</div>
           </Notification>
           }
           <Field>
@@ -56,7 +56,7 @@ class Register extends Component {
             <Input value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
             <Label>Confirm Password</Label>
             <Input value={passwordConf} type='password' onChange={e => this.setState({ passwordConf: e.target.value })} />
-            <Button className='is-primary' onClick={this.handleSubmit}>Register</Button>
+            <Button className='is-warning' onClick={this.handleSubmit}>Register</Button>
           </Field>
         </div>
       </Card>
@@ -64,4 +64,7 @@ class Register extends Component {
   }
 }
 
+Register.propTypes = {
+  setCurrentUser: PropTypes.func.isRequired
+}
 export default Register

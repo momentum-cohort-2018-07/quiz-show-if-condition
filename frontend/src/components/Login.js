@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Label, Input, Notification } from 'bloomer'
-import Card from './Card'
+import { Label, Input, Notification, Button } from 'bloomer'
+import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
+import Card from './Card'
 import Register from './Register'
 import apiCalls from '../apiCalls'
-import { NavLink } from 'react-router-dom'
 
 class Login extends Component {
   constructor () {
@@ -43,25 +44,30 @@ class Login extends Component {
     } else {
       return (
         <Card>
-          <div className='is-size-4 has-text-centered'>
+          <div className='links is-size-6 has-text-centered'>
             <NavLink to='/login'>Log In</NavLink>
-          &nbsp;|&nbsp;
+            &nbsp;<span className='pipe'>|</span>&nbsp;
             <NavLink to='/register'>Register</NavLink>
           </div>
           { errMsg &&
-          <Notification isColor='danger'>
-            {errMsg}
+          <Notification isColor='warning'>
+            <div>{errMsg}</div>
           </Notification>
           }
           <Label>Username</Label>
           <Input className='username' value={username} onChange={(e) => this.setState({ username: e.target.value })} />
           <Label>Password</Label>
           <Input className='username' value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
-          <NavLink to='/dashboard' className='is-primary' onClick={(e) => this.handleSubmit(e)}>Login</NavLink>
+          <Button className='button is-warning'><NavLink to='/dashboard' onClick={(e) => this.handleSubmit(e)}>Login</NavLink></Button>
         </Card>
       )
     }
   }
 }
 
+Login.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  setCurrentUser: PropTypes.func.isRequired
+}
 export default Login

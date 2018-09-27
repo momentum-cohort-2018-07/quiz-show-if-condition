@@ -1,47 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One');
+
 * {
     box-sizing: border-box; 
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: #242624;
+}
+
+p > code {
+  font-size: .75rem;
 }
 
 .App {
     padding: 1rem 2rem;
     display: flex;
+    background-color: #FFFDF2;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    color: 242624;
+.Card {
+  border: 1px solid #BDBF09;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  margin: 5rem 15%;
+  width: 75%;
+}
+
+.attribution {
+  font-size: 14px;
+  margin-top: 4rem;
+  margin-right: 1rem;
 }
 
 .board {
-    border: 1px solid black;
-    min-height: 80vh;
+    border-radius: 10px;
+    min-height: 95vh;
     width: 100%;
-    background-color: lightgray;
     padding: 1rem;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+.selection {
+   max-width: 10%;
+}
+
+.links {
+  margin-bottom: 10px;
 }
 
 .main {
     flex: 0 1 100%;
 }
 
-.Card {
-  border: 1px solid black;
-  border-radius: 10px;
-  box-shadow: 15px 15px 34px -17px rgba(0,0,0,0.75);
-  padding: 1rem 2rem;
-  margin: 2rem auto;
-  width: 75%;
-  background-color: white;
+.pipe .question-number {
+  color: #D96C06;
+}
+
+.sidebar-title {
+font-family: 'Fredoka One', cursive;
+color: #D96C06;
+}
+
+.user-info {
+  padding-top: 10px;
 }
 
 @media only screen and (min-width: 1025px) {
     .sidebar {
       flex: 0 0 300px;
+      margin-top: 25px;
+      border-right: 1px solid #BDBF09;
     }
   }
-  
   
   @media only screen and (max-width: 1024px) {
     .App {

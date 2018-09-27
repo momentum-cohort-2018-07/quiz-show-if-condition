@@ -36,6 +36,10 @@ body {
   margin-top: 10px;
 }
 
+.selection {
+   max-width: 10%;
+}
+
 .links {
   margin-bottom: 10px;
 }
@@ -48,6 +52,12 @@ body {
   color: #D96C06;
 }
 
+.title {
+  line-height: 2rem;
+}
+.title-code {
+  font-size: small;
+}
 .sidebar-title {
 font-family: 'Fredoka One', cursive;
 color: #D96C06;

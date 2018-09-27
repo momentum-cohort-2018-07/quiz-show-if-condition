@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Title } from 'bloomer'
-import Card from './Card'
+import Markdown from 'react-markdown'
 
 import apiCalls from '../apiCalls'
 import Answer from './Answer'
+import Card from './Card'
 
 class Question extends Component {
   constructor () {
@@ -82,9 +83,9 @@ class Question extends Component {
       return (
         <Card>
           <div>
-            <Title className='is-size-5'><span className='question-number'>Question{data.attributes.number}.</span> {question}</Title>
+            <Title className='is-size-5'><span className='is-orange'>Question{data.attributes.number}.</span> <Markdown source={question} /></Title>
             {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-            <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
+            <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
           </div>
         </Card>
       )
@@ -95,9 +96,9 @@ class Question extends Component {
       return (
         <Card>
           <div>
-            <Title className='is-size-5'><span className='question-number'>Question{data.attributes.number}.</span> {question}</Title>
+            <Title className='is-size-5'><span className='question-number'>Question{data.attributes.number}.</span> <Markdown className='title-code' source={question} /></Title>
             {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-            <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
+            <Button className='is-warning' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
           </div>
         </Card>
       )

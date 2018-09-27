@@ -5,6 +5,7 @@ import {
   Redirect
 } from 'react-router-dom'
 import './index.css'
+import './index.scss'
 import 'bulma/css/bulma.css'
 
 import Login from './components/Login'

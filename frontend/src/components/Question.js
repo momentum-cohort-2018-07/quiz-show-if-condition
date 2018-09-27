@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button, Title } from 'bloomer'
-import { NavLink } from 'react-router-dom'
 import Card from './Card'
 
 import apiCalls from '../apiCalls'
@@ -76,33 +75,34 @@ class Question extends Component {
     })
   }
   render () {
-    const { quizId } = this.props
     if (this.state.question && this.state.question.data.attributes.text && !this.state.lastQuestion) {
       const { data, links } = this.state.question
       const question = data.attributes.text
       const answers = data.relationships.answers
       return (
-        <div>
-          <h1> Question {data.attributes.number}. {question}</h1>
-          {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-          <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          {/* <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.setNewQuestion(e)}>Next</NavLink> */}
-        </div>
+        <Card>
+          <div>
+            <Title className='is-size-5'><span className='question-number'>Question{data.attributes.number}.</span> {question}</Title>
+            {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
+            <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
+          </div>
+        </Card>
       )
     } else if (this.state.lastQuestion && this.state.question) {
       const { data, links } = this.state.question
       const question = data.attributes.text
       const answers = data.relationships.answers
       return (
-        <div>
-          <h1> Question {data.attributes.number}. {question}</h1>
-          {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
-          <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
-          {/* <NavLink to={`/quiz/${quizId}/question/${data.attributes.number}`} onClick={e => this.showScore(e)}>Show Score</NavLink> */}
-        </div>
+        <Card>
+          <div>
+            <Title className='is-size-5'><span className='question-number'>Question{data.attributes.number}.</span> {question}</Title>
+            {answers.map(answer => <Answer key={answer.data.id} links={links} answer={answer} setStateInQuestion={this.setStateInQuestion} />)}
+            <Button className='is-primary' value={links} onClick={e => this.handleSubmit(e)}>Submit</Button>
+          </div>
+        </Card>
       )
     } else if (this.state.score) {
-      return (<div>You Scored {this.state.score.number_correct}/{this.state.score.number_asked}</div>)
+      return (<Card><div><Title>You Scored</Title> {this.state.score.number_correct}/{this.state.score.number_asked}</div></Card>)
     } else {
       return ('')
     }

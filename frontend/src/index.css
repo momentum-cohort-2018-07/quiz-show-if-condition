@@ -25,10 +25,6 @@ body {
   width: 75%;
 }
 
-.links {
-  margin-bottom: 10px;
-}
-
 .board {
     border-radius: 10px;
     min-height: 95vh;
@@ -39,11 +35,16 @@ body {
 .button {
   margin-top: 10px;
 }
+
+.links {
+  margin-bottom: 10px;
+}
+
 .main {
     flex: 0 1 100%;
 }
 
-.pipe {
+.pipe .question-number {
   color: #D96C06;
 }
 

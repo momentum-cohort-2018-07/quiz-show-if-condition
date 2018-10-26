@@ -10,6 +10,7 @@ class QuizList extends Component {
     super()
     this.state = {
       quizzes: [],
+      loaded: false,
       published: true,
       activeQuiz: false
     }
@@ -20,22 +21,24 @@ class QuizList extends Component {
   }
   getQuizzes () {
     apiCalls.getQuizzes().then(quizzes => {
-      this.setState({ quizzes })
+      this.setState({ quizzes: quizzes,
+        loaded: true })
     })
   }
   makeActive () {
     this.setState({ active: true })
   }
   render () {
-    if (this.state.quizzes.length > 0) {
+    let { loaded, quizzes } = this.state
+    if (loaded) {
       return (
-
         <div>
-          {this.state.quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
+          <h1>Published Quizzes</h1>
+          {quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
         </div>
       )
     } else {
-      return ('')
+      return (<div>loading</div>)
     }
   }
 }

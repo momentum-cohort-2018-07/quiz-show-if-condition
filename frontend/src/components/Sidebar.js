@@ -4,23 +4,23 @@ import PropTypes from 'prop-types'
 
 import { Title, Button } from 'bloomer'
 import { NavLink } from 'react-router-dom'
-import Profile from './Profile'
+
 class SideBar extends Component {
   constructor () {
     super()
     this.state = {
-      updateProfile: false
     }
-    this.updateProfile = this.updateProfile.bind(this)
+    this.onLogOut = this.onLogOut.bind(this)
   }
-  updateProfile () {
-    this.setState(prevState => ({ updateProfile: !prevState.updateProfile }))
+  onLogOut (e) {
+    e.preventDefault()
+    this.props.onLogout()
   }
-  onLogOut () {
-    this.props.onLogOut()
+  updateProfile (e) {
+    this.props.updateProfile()
   }
   render () {
-    let { currentUser } = this.props
+    let { currentUser, updateProfile } = this.props
     if (currentUser) {
       return (
         <div className='sidebar'>
@@ -28,8 +28,10 @@ class SideBar extends Component {
           { currentUser &&
           <div className='user-info'>
             <p>Logged in as {currentUser.username} </p>
-            <Button onClick={this.updateProfile()}> Profile</Button>
-            <Button className='is-warning' onClick={this.onLogout()}>Logout</Button>
+            <NavLink to={`/updateprofile`}>
+              <Button onClick={(e) => { this.updateProfile(e) }}> Profile</Button>
+            </NavLink>
+            <Button className='is-warning' onClick={(e) => { this.onLogOut(e) }}>Logout</Button>
           </div>
           }
           <div className='attribution'>
@@ -45,10 +47,30 @@ class SideBar extends Component {
           </div>
         </div>
       )
-    } else if (this.state.updateProfile) {
-      return (
-        <Profile updateProfile={this.updateProfile} />
-      )
+    } else if (updateProfile) {
+      return (<div className='sidebar'>
+        <NavLink to='/'><Title className='sidebar-title is-size-2'>Quizzly Bear</Title></NavLink>
+        { currentUser &&
+          <div className='user-info'>
+            <p>Logged in as {currentUser.username} </p>
+            <NavLink to={`/updateprofile`}>
+              <Button onClick={(e) => { this.updateProfile(e) }}> Quizzes</Button>
+            </NavLink>
+            <Button className='is-warning' onClick={(e) => { this.onLogOut(e) }}>Logout</Button>
+          </div>
+        }
+        <div className='attribution'>
+          <div>
+      Created by Team If-Condition @ Momentum Learn
+          </div>
+          <div>
+      (Jeanette O'Brien, Steve Patterson, Alex Corey and Chris Hagmann)
+          </div>
+          <div>
+            <a href='https://github.com/momentum-cohort-2018-07/quiz-show-if-condition'>See the code at Github.</a>
+          </div>
+        </div>
+      </div>)
     } else {
       return (
         <div className='sidebar'>
@@ -56,7 +78,7 @@ class SideBar extends Component {
           { currentUser &&
           <div className='user-info'>
             <p>Logged in as {currentUser.username} </p>
-            <Button className='is-warning' onClick={this.onLogout}>Logout</Button>
+            <Button className='is-warning' onClick={this.onLogOut()}>Logout</Button>
           </div>
           }
           <div className='attribution'>

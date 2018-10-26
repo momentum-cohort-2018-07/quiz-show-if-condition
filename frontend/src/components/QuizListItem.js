@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 const QuizListItem = (props) => (
-  <div className='quiz-node'>
+  <div className='quiz-node' key={props.id}>
     <NavLink to={`/quiz/${props.quiz.id}`}>{props.quiz.title}</NavLink>
   </div>
 )

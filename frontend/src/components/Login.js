@@ -58,7 +58,7 @@ class Login extends Component {
           <Input className='username' value={username} onChange={(e) => this.setState({ username: e.target.value })} />
           <Label>Password</Label>
           <Input className='username' value={password} type='password' onChange={e => this.setState({ password: e.target.value })} />
-          <Button className='button is-warning'><NavLink to='/dashboard' onClick={(e) => this.handleSubmit(e)}>Login</NavLink></Button>
+          <Button className='button is-warning'><NavLink to='/dashboard' onClick={(e) => { this.handleSubmit(e) }} >Login</NavLink></Button>
         </Card>
       )
     }

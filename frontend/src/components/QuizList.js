@@ -35,7 +35,7 @@ class QuizList extends Component {
       return (
         <div>
           <Link to='/addQuiz' className='addQuizBtn'><Button>Add Quiz</Button></Link>
-          <h1>Published Quizzes</h1>
+          <Title>Published Quizzes</Title>
           {quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
         </div>
       )

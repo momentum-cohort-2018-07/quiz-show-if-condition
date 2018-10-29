@@ -67,7 +67,7 @@ class Login extends Component {
 
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
+  // register: PropTypes.func.isRequired,
   setCurrentUser: PropTypes.func.isRequired
 }
 export default Login

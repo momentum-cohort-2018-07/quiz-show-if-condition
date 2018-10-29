@@ -16,6 +16,7 @@ import apiCalls from './apiCalls'
 import QuizList from './components/QuizList'
 import Answers from './components/Answer'
 import Profile from './components/Profile'
+import AddQuizContainer from './components/AddQuizContainer'
 
 class App extends Component {
   constructor () {
@@ -80,6 +81,11 @@ class App extends Component {
               <Route exact path='/updateProfile' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='login'>
                   <Profile token={this.state.currentUser.token} />
+                </Guard>} />
+
+              <Route exact path='/addQuiz' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='login'>
+                  <AddQuizContainer token={this.state.currentUser.token} />
                 </Guard>} />
 
               <Route path='/register' render={() =>

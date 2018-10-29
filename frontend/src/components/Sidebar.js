@@ -18,13 +18,13 @@ class SideBar extends Component {
     this.props.onLogout()
   }
   updateProfile () {
-    this.setState(state => ({ updateProfile: true }))
+    this.setState(state => ({ updateProfile: !state.updateProfile }))
     this.props.updateProfile()
   }
   render () {
     let { currentUser } = this.props
     let { updateProfile } = this.state
-    if (currentUser) {
+    if (currentUser && !updateProfile) {
       return (
         <div className='sidebar'>
           <NavLink to='/'><Title className='sidebar-title is-size-2'>Quizzly Bear</Title></NavLink>

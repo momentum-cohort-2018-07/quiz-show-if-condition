@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Title } from 'bloomer'
+import { Title, Button } from 'bloomer'
+import { Link } from 'react-router-dom'
 
 import apiCalls from '../apiCalls'
 import QuizListItem from './QuizListItem'
@@ -10,6 +11,7 @@ class QuizList extends Component {
     super()
     this.state = {
       quizzes: [],
+      loaded: false,
       published: true,
       activeQuiz: false
     }
@@ -20,22 +22,25 @@ class QuizList extends Component {
   }
   getQuizzes () {
     apiCalls.getQuizzes().then(quizzes => {
-      this.setState({ quizzes })
+      this.setState({ quizzes: quizzes,
+        loaded: true })
     })
   }
   makeActive () {
     this.setState({ active: true })
   }
   render () {
-    if (this.state.quizzes.length > 0) {
+    let { loaded, quizzes } = this.state
+    if (loaded) {
       return (
-
         <div>
-          {this.state.quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
+          <Link to='/addQuiz' className='addQuizBtn'><Button>Add Quiz</Button></Link>
+          <Title>Published Quizzes</Title>
+          {quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
         </div>
       )
     } else {
-      return ('')
+      return (<div>No loaded</div>)
     }
   }
 }

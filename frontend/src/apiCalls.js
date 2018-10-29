@@ -12,6 +12,7 @@ const apiCalls = {
       .then(response => {
         let token = response.body.token
         apiCalls.setUserToken(token)
+        console.log(userToken, 'user token')
         apiCalls.checkAdmin(response.body.admin, response.body.token)
         return { username, token }
       })
@@ -113,9 +114,19 @@ const apiCalls = {
   },
   getUserProfile: (token) => {
     return request.get(`${apiDomain}/profile`)
+      .then(res => res.body)
   },
   getAdminProfile: (token) => {
     return request.get(`${apiDomain}/quizzes`)
+  },
+  createQuiz: (title) => {
+    return request.post(`${apiDomain}/quizzes`)
+      .set('Authorization', `Bearer ${userToken}`)
+      .send({ 'title': `${title}` })
+      .then(res => {
+        console.log(res, 'res')
+        return (res.body)
+      })
   }
 }
 

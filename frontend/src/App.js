@@ -15,15 +15,19 @@ import Sidebar from './components/Sidebar'
 import apiCalls from './apiCalls'
 import QuizList from './components/QuizList'
 import Answers from './components/Answer'
+import Profile from './components/Profile'
+import AddQuizContainer from './components/AddQuizContainer'
 
 class App extends Component {
   constructor () {
     super()
     this.state = {
-      currentUser: null
+      currentUser: null,
+      updateProfile: false
     }
     this.setCurrentUser = this.setCurrentUser.bind(this)
     this.onLogout = this.onLogout.bind(this)
+    this.updateProfile = this.updateProfile.bind(this)
 
     const username = window.localStorage.getItem('username')
     const token = window.localStorage.getItem('token')
@@ -42,13 +46,16 @@ class App extends Component {
     window.localStorage.removeItem('token')
     this.setState({ currentUser: false })
   }
+  updateProfile () {
+    this.setState(state => ({ updateProfile: !state.updateProfile }))
+  }
 
   render () {
     const { currentUser } = this.state
     return (
       <Router>
         <div className='App'>
-          <Sidebar onLogout={this.onLogout} currentUser={currentUser} />
+          <Sidebar onLogout={this.onLogout} currentUser={currentUser} updateProfile={this.updateProfile} />
           <main className='main'>
             <div className='board'>
               <Route exact path='/' render={() =>
@@ -66,10 +73,20 @@ class App extends Component {
                   <Question quizId={match.params.quizId} id={match.params.id} />
                 </Guard>} />
 
-              {<Route path='/quiz/:quizid/question/:id/answers' render={({ match }) =>
+              <Route path='/quiz/:quizid/question/:id/answers' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
                   <Answers id={match.params.id} />
-                </Guard>} /> }
+                </Guard>} />
+
+              <Route exact path='/updateProfile' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='login'>
+                  <Profile token={this.state.currentUser.token} />
+                </Guard>} />
+
+              <Route exact path='/addQuiz' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='login'>
+                  <AddQuizContainer token={this.state.currentUser.token} />
+                </Guard>} />
 
               <Route path='/register' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
@@ -84,6 +101,7 @@ class App extends Component {
             </div>
           </main>
         </div>
+
       </Router>
     )
   }

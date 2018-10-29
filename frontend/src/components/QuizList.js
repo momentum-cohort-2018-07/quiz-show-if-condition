@@ -38,7 +38,7 @@ class QuizList extends Component {
         </div>
       )
     } else {
-      return (<div>loading</div>)
+      return (<div>No loaded</div>)
     }
   }
 }

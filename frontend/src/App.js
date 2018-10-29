@@ -72,10 +72,15 @@ class App extends Component {
                   <Question quizId={match.params.quizId} id={match.params.id} />
                 </Guard>} />
 
-              {<Route path='/quiz/:quizid/question/:id/answers' render={({ match }) =>
+              <Route path='/quiz/:quizid/question/:id/answers' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='/login'>
                   <Answers id={match.params.id} />
-                </Guard>} /> }
+                </Guard>} />
+
+              <Route exact path='/updateProfile' render={({ match }) =>
+                <Guard condition={this.state.currentUser} redirectTo='login'>
+                  <Profile />
+                </Guard>} />
 
               <Route path='/register' render={() =>
                 <Guard condition={!this.state.currentUser} redirectTo='/'>
@@ -88,11 +93,6 @@ class App extends Component {
                 </Guard>}
               />
             </div>
-            <Route path='/updateProfile' render={({ math }) =>
-              <Guard condition={this.state.currentuser} redirectTo='login'>
-                <Profile updateProfile={this.updateProfile} />
-              </Guard>}
-            />
           </main>
         </div>
 

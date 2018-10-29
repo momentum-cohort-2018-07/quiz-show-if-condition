@@ -9,6 +9,7 @@ class SideBar extends Component {
   constructor () {
     super()
     this.state = {
+      updateProfile: false
     }
     this.onLogOut = this.onLogOut.bind(this)
   }
@@ -16,11 +17,13 @@ class SideBar extends Component {
     e.preventDefault()
     this.props.onLogout()
   }
-  updateProfile (e) {
+  updateProfile () {
+    this.setState(state => ({ updateProfile: true }))
     this.props.updateProfile()
   }
   render () {
-    let { currentUser, updateProfile } = this.props
+    let { currentUser } = this.props
+    let { updateProfile } = this.state
     if (currentUser) {
       return (
         <div className='sidebar'>
@@ -28,8 +31,8 @@ class SideBar extends Component {
           { currentUser &&
           <div className='user-info'>
             <p>Logged in as {currentUser.username} </p>
-            <NavLink to={`/updateprofile`}>
-              <Button onClick={(e) => { this.updateProfile(e) }}> Profile</Button>
+            <NavLink to={`/updateProfile`}>
+              <Button onClick={(e) => { this.updateProfile() }}>Profile</Button>
             </NavLink>
             <Button className='is-warning' onClick={(e) => { this.onLogOut(e) }}>Logout</Button>
           </div>
@@ -47,14 +50,15 @@ class SideBar extends Component {
           </div>
         </div>
       )
-    } else if (updateProfile) {
+    } else if (updateProfile && currentUser) {
+      console.log('here')
       return (<div className='sidebar'>
         <NavLink to='/'><Title className='sidebar-title is-size-2'>Quizzly Bear</Title></NavLink>
         { currentUser &&
           <div className='user-info'>
             <p>Logged in as {currentUser.username} </p>
-            <NavLink to={`/updateprofile`}>
-              <Button onClick={(e) => { this.updateProfile(e) }}> Quizzes</Button>
+            <NavLink to={`/`}>
+              <Button onClick={(e) => { this.updateProfile() }}>Quizzes</Button>
             </NavLink>
             <Button className='is-warning' onClick={(e) => { this.onLogOut(e) }}>Logout</Button>
           </div>

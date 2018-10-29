@@ -51,7 +51,6 @@ class SideBar extends Component {
         </div>
       )
     } else if (updateProfile && currentUser) {
-      console.log('here')
       return (<div className='sidebar'>
         <NavLink to='/'><Title className='sidebar-title is-size-2'>Quizzly Bear</Title></NavLink>
         { currentUser &&

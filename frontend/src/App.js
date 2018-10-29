@@ -79,7 +79,7 @@ class App extends Component {
 
               <Route exact path='/updateProfile' render={({ match }) =>
                 <Guard condition={this.state.currentUser} redirectTo='login'>
-                  <Profile />
+                  <Profile token={this.state.currentUser.token} />
                 </Guard>} />
 
               <Route path='/register' render={() =>

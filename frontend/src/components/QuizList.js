@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Title } from 'bloomer'
+import { Title, Button } from 'bloomer'
+import { Link } from 'react-router-dom'
 
 import apiCalls from '../apiCalls'
 import QuizListItem from './QuizListItem'
@@ -33,6 +34,7 @@ class QuizList extends Component {
     if (loaded) {
       return (
         <div>
+          <Link to='/addQuiz' className='addQuizBtn'><Button>Add Quiz</Button></Link>
           <h1>Published Quizzes</h1>
           {quizzes.map((quiz) => <Card><Title><QuizListItem key={quiz.id} quiz={quiz} makeActive={this.makeActive} activeQuestion={this.state.activeQuiz} /></Title></Card>)}
         </div>

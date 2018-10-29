@@ -112,7 +112,9 @@ const apiCalls = {
       })
   },
   getUserProfile: (token) => {
+    console.log(token, 'token')
     return request.get(`${apiDomain}/profile`)
+      .then(res => res.body)
   },
   getAdminProfile: (token) => {
     return request.get(`${apiDomain}/quizzes`)
